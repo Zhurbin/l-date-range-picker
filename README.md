@@ -26,10 +26,31 @@ Insert to you package.json and run install command:
 ```
 "date-range-picker": "Zhurbin/date-range-picker#main",
 ```
+
 This plugin expects `react` and `date-fns` as peerDependencies, It means that you need to install them in your project folder.
 
 ```
 npm install --save react date-fns
+```
+
+### How to update when you change something in codebase of library
+
+If you made some changes, run build commant (for compile dist)
+
+```
+yarn build
+```
+
+After that, push changes to repo
+
+```
+git push
+```
+
+And updae library into your project
+
+```
+yarn upgrade date-range-picker
 ```
 
 ## Usage
