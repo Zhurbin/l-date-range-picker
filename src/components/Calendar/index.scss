@@ -70,7 +70,7 @@
 }
 
 .rdrMonth{
-  width: 27.667em;
+  width: 248px;
 }
 
 .rdrWeekDays{
@@ -78,7 +78,7 @@
 }
 
 .rdrWeekDay {
-  flex-basis: calc(100% / 7);
+  flex-basis: calc(32px + 4px);
   box-sizing: inherit;
   text-align: center;
 }

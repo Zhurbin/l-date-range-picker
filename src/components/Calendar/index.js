@@ -62,7 +62,7 @@ class Calendar extends PureComponent {
     if (direction === 'vertical') {
       return {
         enabled: true,
-        monthHeight: scroll.monthHeight || 220,
+        monthHeight: scroll.monthHeight || 200,
         longMonthHeight: longMonthHeight || 260,
         calendarWidth: 'auto',
         calendarHeight: (scroll.calendarHeight || longMonthHeight || 240) * months,
@@ -535,9 +535,9 @@ Calendar.defaultProps = {
   locale: defaultLocale,
   ranges: [],
   focusedRange: [0, 0],
-  dateDisplayFormat: 'MMM d, yyyy',
+  dateDisplayFormat: 'dd/MM/yyyy',
   monthDisplayFormat: 'MMM yyyy',
-  weekdayDisplayFormat: 'E',
+  weekdayDisplayFormat: 'EEEEEE',
   dayDisplayFormat: 'd',
   showDateDisplay: true,
   showPreview: true,

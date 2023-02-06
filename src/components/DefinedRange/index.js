@@ -53,7 +53,7 @@ class DefinedRange extends Component {
       staticRanges,
       ranges,
       renderStaticRangeLabel,
-      rangeColors,
+      // rangeColors,
       className,
     } = this.props;
 
@@ -62,7 +62,8 @@ class DefinedRange extends Component {
         {headerContent}
         <div className={styles.staticRanges}>
           {staticRanges.map((staticRange, i) => {
-            const { selectedRange, focusedRangeIndex } = this.getSelectedRange(ranges, staticRange);
+            // const { selectedRange, focusedRangeIndex } = this.getSelectedRange(ranges, staticRange);
+            const { selectedRange } = this.getSelectedRange(ranges, staticRange);
             let labelContent;
 
             if (staticRange.hasCustomRendering) {
@@ -77,11 +78,11 @@ class DefinedRange extends Component {
                 className={cx(styles.staticRange, {
                   [styles.staticRangeSelected]: Boolean(selectedRange),
                 })}
-                style={{
-                  color: selectedRange
-                    ? selectedRange.color || rangeColors[focusedRangeIndex]
-                    : null,
-                }}
+                // style={{
+                //   color: selectedRange
+                //     ? selectedRange.color || rangeColors[focusedRangeIndex]
+                //     : null,
+                // }}
                 key={i}
                 onClick={() => this.handleRangeChange(staticRange.range(this.props))}
                 onFocus={() => onPreviewChange && onPreviewChange(staticRange.range(this.props))}

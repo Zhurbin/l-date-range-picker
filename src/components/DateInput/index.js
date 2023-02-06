@@ -102,7 +102,7 @@ DateInput.propTypes = {
 DateInput.defaultProps = {
   readOnly: true,
   disabled: false,
-  dateDisplayFormat: 'MMM D, YYYY',
+  dateDisplayFormat: 'DD/MM/YYYY',
 };
 
 export default DateInput;

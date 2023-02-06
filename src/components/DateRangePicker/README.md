@@ -1,5 +1,36 @@
 This component wraps **[DefinedRange](#definedrange)** and **[Calendar](#calendar)** components together, and extends all the props of them.
 
+#### Example: Dafault view
+
+```jsx inside Markdown
+import { addDays } from 'date-fns';
+import { useState } from 'react';
+
+const [state, setState] = useState([
+  {
+    startDate: new Date(),
+    endDate: addDays(new Date(), 7),
+    // color: '#E4F7FB',
+    key: 'selection'
+  }
+]);
+
+<DateRangePicker
+  ranges={state}
+  months={1}
+  direction='vertical'
+  scroll={{
+    enabled: true,
+    calendarHeight: 257,
+  }}
+  moveRangeOnFirstSelection={false}
+  navigatorRenderer={(() => {})}
+  editableDateInputs
+  onChange={item => setState([item.selection])}
+  inputRanges={[]}
+/>;
+```
+
 #### Example: 2 Month View
 
 ```jsx inside Markdown
