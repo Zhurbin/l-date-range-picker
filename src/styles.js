@@ -50,4 +50,9 @@ export default {
   infiniteMonths: 'rdrInfiniteMonths',
   monthsVertical: 'rdrMonthsVertical',
   monthsHorizontal: 'rdrMonthsHorizontal',
+  arrowsWrapper: 'rdrArrowsWrapper',
+  monthAndYearWrapperVertical: 'rdrMonthAndYearWrapperVertical',
+  nextButtonVertical: 'rdrNextButtonVertical',
+  prevButtonVertical: 'rdrPrevButtonVertical',
+  nextPrevButtonVertical: 'rdrNextPrevButtonVertical',
 };
