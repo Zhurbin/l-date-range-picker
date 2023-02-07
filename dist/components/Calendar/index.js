@@ -334,6 +334,32 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
       }, /*#__PURE__*/_react.default.createElement("i", null)) : null);
     });
 
+    _defineProperty(_assertThisInitialized(_this), "renderMonthAndYearVertical", function (changeShownDate, props) {
+      var showMonthArrow = props.showMonthArrow,
+          ariaLabels = props.ariaLabels;
+      var styles = _this.styles;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        onMouseUp: function onMouseUp(e) {
+          return e.stopPropagation();
+        },
+        className: styles.monthAndYearWrapperVertical
+      }, showMonthArrow ? /*#__PURE__*/_react.default.createElement("button", {
+        type: "button",
+        className: (0, _classnames3.default)(styles.nextPrevButtonVertical, styles.prevButtonVertical),
+        onClick: function onClick() {
+          return changeShownDate(-1, 'monthOffset');
+        },
+        "aria-label": ariaLabels.prevButton
+      }, /*#__PURE__*/_react.default.createElement("i", null)) : null, showMonthArrow ? /*#__PURE__*/_react.default.createElement("button", {
+        type: "button",
+        className: (0, _classnames3.default)(styles.nextPrevButtonVertical, styles.nextButtonVertical),
+        onClick: function onClick() {
+          return changeShownDate(+1, 'monthOffset');
+        },
+        "aria-label": ariaLabels.nextButton
+      }, /*#__PURE__*/_react.default.createElement("i", null)) : null);
+    });
+
     _defineProperty(_assertThisInitialized(_this), "renderDateDisplay", function () {
       var _this$props3 = _this.props,
           focusedRange = _this$props3.focusedRange,
@@ -531,7 +557,7 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
       if (direction === 'vertical') {
         return {
           enabled: true,
-          monthHeight: scroll.monthHeight || 220,
+          monthHeight: scroll.monthHeight || 200,
           longMonthHeight: longMonthHeight || 260,
           calendarWidth: 'auto',
           calendarHeight: (scroll.calendarHeight || longMonthHeight || 240) * months
@@ -652,7 +678,9 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
             }
           });
         }
-      }, showDateDisplay && this.renderDateDisplay(), monthAndYearRenderer(focusedDate, this.changeShownDate, this.props), scroll.enabled ? /*#__PURE__*/_react.default.createElement("div", null, isVertical && this.renderWeekdays(this.dateOptions), /*#__PURE__*/_react.default.createElement("div", {
+      }, showDateDisplay && this.renderDateDisplay(), monthAndYearRenderer(focusedDate, this.changeShownDate, this.props), scroll.enabled ? /*#__PURE__*/_react.default.createElement("div", {
+        className: this.styles.arrowsWrapper
+      }, /*#__PURE__*/_react.default.createElement("div", null, isVertical && this.renderWeekdays(this.dateOptions), /*#__PURE__*/_react.default.createElement("div", {
         className: (0, _classnames3.default)(this.styles.infiniteMonths, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal),
         onMouseLeave: function onMouseLeave() {
           return onPreviewChange && onPreviewChange();
@@ -700,7 +728,7 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
             showWeekDays: !isVertical
           }));
         }
-      }))) : /*#__PURE__*/_react.default.createElement("div", {
+      }))), this.renderMonthAndYearVertical(this.changeShownDate, this.props)) : /*#__PURE__*/_react.default.createElement("div", {
         className: (0, _classnames3.default)(this.styles.months, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal)
       }, new Array(this.props.months).fill(null).map(function (_, i) {
         var monthStep = (0, _addMonths.default)(_this5.state.focusedDate, i);
@@ -745,9 +773,9 @@ Calendar.defaultProps = {
   locale: _enUS.default,
   ranges: [],
   focusedRange: [0, 0],
-  dateDisplayFormat: 'MMM d, yyyy',
+  dateDisplayFormat: 'dd/MM/yyyy',
   monthDisplayFormat: 'MMM yyyy',
-  weekdayDisplayFormat: 'E',
+  weekdayDisplayFormat: 'EEEEEE',
   dayDisplayFormat: 'd',
   showDateDisplay: true,
   showPreview: true,

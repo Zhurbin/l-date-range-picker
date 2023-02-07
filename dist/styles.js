@@ -55,6 +55,11 @@ var _default = {
   monthName: 'rdrMonthName',
   infiniteMonths: 'rdrInfiniteMonths',
   monthsVertical: 'rdrMonthsVertical',
-  monthsHorizontal: 'rdrMonthsHorizontal'
+  monthsHorizontal: 'rdrMonthsHorizontal',
+  arrowsWrapper: 'rdrArrowsWrapper',
+  monthAndYearWrapperVertical: 'rdrMonthAndYearWrapperVertical',
+  nextButtonVertical: 'rdrNextButtonVertical',
+  prevButtonVertical: 'rdrPrevButtonVertical',
+  nextPrevButtonVertical: 'rdrNextPrevButtonVertical'
 };
 exports.default = _default;

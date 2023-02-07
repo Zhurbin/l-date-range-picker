@@ -124,16 +124,15 @@ var DefinedRange = /*#__PURE__*/function (_Component) {
           staticRanges = _this$props3.staticRanges,
           ranges = _this$props3.ranges,
           renderStaticRangeLabel = _this$props3.renderStaticRangeLabel,
-          rangeColors = _this$props3.rangeColors,
           className = _this$props3.className;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: (0, _classnames.default)(_styles.default.definedRangesWrapper, className)
       }, headerContent, /*#__PURE__*/_react.default.createElement("div", {
         className: _styles.default.staticRanges
       }, staticRanges.map(function (staticRange, i) {
+        // const { selectedRange, focusedRangeIndex } = this.getSelectedRange(ranges, staticRange);
         var _this2$getSelectedRan = _this2.getSelectedRange(ranges, staticRange),
-            selectedRange = _this2$getSelectedRan.selectedRange,
-            focusedRangeIndex = _this2$getSelectedRan.focusedRangeIndex;
+            selectedRange = _this2$getSelectedRan.selectedRange;
 
         var labelContent;
 
@@ -145,10 +144,12 @@ var DefinedRange = /*#__PURE__*/function (_Component) {
 
         return /*#__PURE__*/_react.default.createElement("button", {
           type: "button",
-          className: (0, _classnames.default)(_styles.default.staticRange, _defineProperty({}, _styles.default.staticRangeSelected, Boolean(selectedRange))),
-          style: {
-            color: selectedRange ? selectedRange.color || rangeColors[focusedRangeIndex] : null
-          },
+          className: (0, _classnames.default)(_styles.default.staticRange, _defineProperty({}, _styles.default.staticRangeSelected, Boolean(selectedRange))) // style={{
+          //   color: selectedRange
+          //     ? selectedRange.color || rangeColors[focusedRangeIndex]
+          //     : null,
+          // }}
+          ,
           key: i,
           onClick: function onClick() {
             return _this2.handleRangeChange(staticRange.range(_this2.props));
