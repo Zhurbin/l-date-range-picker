@@ -7,7 +7,7 @@
 .rdrDateDisplayWrapper{}
 
 .rdrDateDisplay{
-  margin: 0 12px 12px;
+  margin: 0 0 12px 12px;
 }
 
 .rdrDateDisplayItem{
@@ -316,7 +316,7 @@
 
 .rdrDefinedRangesWrapper{
   font-size: 12px;
-  width: 150px;
+  width: 140px;
   border-right: 1px solid #E7E9EE;
   background: #fff;
   .rdrStaticRangeSelected {
@@ -331,7 +331,7 @@
   cursor: pointer;
   display: block;
   outline: 0;
-  padding: 0 12px 4px 12px;
+  padding: 0 12px 4px 0;
   background: #fff;
 
   font-size: 14px;
