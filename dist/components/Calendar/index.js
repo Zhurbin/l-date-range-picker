@@ -125,6 +125,11 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
 
     _this = _super.call(this, _props, context);
 
+    _defineProperty(_assertThisInitialized(_this), "customScrollTo", function (index) {
+      var padding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      if (index != null) _this.list.setScroll(_this.list.getSpaceBefore(index) - padding);
+    });
+
     _defineProperty(_assertThisInitialized(_this), "focusToDate", function (date) {
       var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _this.props;
       var preventUnnecessary = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -152,9 +157,9 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
       var visibleMonths = _this.list.getVisibleRange();
 
       if (preventUnnecessary && visibleMonths.includes(targetMonthIndex)) return;
-      _this.isFirstRender = true;
+      _this.isFirstRender = true; // Use custom scroll function, cause list.scrollTo not supported paddings
 
-      _this.list.scrollTo(targetMonthIndex);
+      _this.customScrollTo(targetMonthIndex, preventUnnecessary ? 0 : 16);
 
       _this.setState({
         focusedDate: date

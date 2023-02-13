@@ -76,6 +76,9 @@ class Calendar extends PureComponent {
       calendarHeight: longMonthHeight || 300,
     };
   }
+  customScrollTo = (index, padding = 0) => {
+    if (index != null) this.list.setScroll(this.list.getSpaceBefore(index) - padding);
+  };
   focusToDate = (date, props = this.props, preventUnnecessary = true) => {
     if (!props.scroll.enabled) {
       if (preventUnnecessary && props.preventSnapRefocus) {
@@ -93,7 +96,9 @@ class Calendar extends PureComponent {
     const visibleMonths = this.list.getVisibleRange();
     if (preventUnnecessary && visibleMonths.includes(targetMonthIndex)) return;
     this.isFirstRender = true;
-    this.list.scrollTo(targetMonthIndex);
+
+    // Use custom scroll function, cause list.scrollTo not supported paddings
+    this.customScrollTo(targetMonthIndex, preventUnnecessary ? 0 : 16);
     this.setState({ focusedDate: date });
   };
   updateShownDate = (props = this.props) => {
