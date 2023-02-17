@@ -165,10 +165,15 @@
 }
 
 .rdrDayToday .rdrDayNumber {
-  border: 1px solid #1DBADF;
-  border-radius: 50%;
-  margin: 2px 4px;
-}
+    border-radius: 50%;
+    margin: 2px 4px;
+    background: #E4F7FB;
+  }
+
+.rdrDayToday .rdrInRange ~ .rdrDayNumber, .rdrDayToday .rdrDayInPreview ~ .rdrDayNumber {
+      border: 1px solid #1DBADF;
+      background: none;
+    }
 
 .rdrDayToday:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span:after,.rdrDayToday:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span:after,.rdrDayToday:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span:after,.rdrDayToday:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span:after{
       background: #fff;
