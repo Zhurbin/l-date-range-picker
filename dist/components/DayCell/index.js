@@ -211,7 +211,8 @@ var DayCell = /*#__PURE__*/function (_Component) {
 
         startDate = startDate ? (0, _endOfDay.default)(startDate) : null;
         endDate = endDate ? (0, _startOfDay.default)(endDate) : null;
-        var isInRange = (!startDate || (0, _isAfter.default)(day, startDate)) && (!endDate || (0, _isBefore.default)(day, endDate));
+        var isEmptyDates = !startDate && !endDate;
+        var isInRange = isEmptyDates ? false : (!startDate || (0, _isAfter.default)(day, startDate)) && (!endDate || (0, _isBefore.default)(day, endDate));
         var isStartEdge = !isInRange && (0, _isSameDay.default)(day, startDate);
         var isEndEdge = !isInRange && (0, _isSameDay.default)(day, endDate);
 
@@ -248,7 +249,9 @@ var DayCell = /*#__PURE__*/function (_Component) {
   _createClass(DayCell, [{
     key: "render",
     value: function render() {
-      var dayContentRenderer = this.props.dayContentRenderer;
+      var _this$props6 = this.props,
+          preview = _this$props6.preview,
+          dayContentRenderer = _this$props6.dayContentRenderer;
       return /*#__PURE__*/_react.default.createElement("button", _extends({
         type: "button",
         onMouseEnter: this.handleMouseEvent,
@@ -267,7 +270,7 @@ var DayCell = /*#__PURE__*/function (_Component) {
         style: {
           color: this.props.color
         }
-      }), this.renderSelectionPlaceholders(), this.renderPreviewPlaceholder(), /*#__PURE__*/_react.default.createElement("span", {
+      }), preview ? null : this.renderSelectionPlaceholders(), this.renderPreviewPlaceholder(), /*#__PURE__*/_react.default.createElement("span", {
         className: this.props.styles.dayNumber
       }, (dayContentRenderer === null || dayContentRenderer === void 0 ? void 0 : dayContentRenderer(this.props.day)) || /*#__PURE__*/_react.default.createElement("span", null, (0, _format.default)(this.props.day, this.props.dayDisplayFormat))));
     }

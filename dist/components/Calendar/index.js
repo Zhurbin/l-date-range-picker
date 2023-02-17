@@ -173,7 +173,7 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
       }) : props;
       var newFocus = (0, _utils.calcFocusDate)(_this.state.focusedDate, newProps);
 
-      _this.focusToDate(newFocus, newProps);
+      _this.focusToDate(newFocus, newProps, false);
     });
 
     _defineProperty(_assertThisInitialized(_this), "updatePreview", function (val) {
