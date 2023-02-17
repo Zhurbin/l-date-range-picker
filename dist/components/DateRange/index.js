@@ -198,7 +198,7 @@ var DateRange = /*#__PURE__*/function (_Component) {
       _this.props.onRangeFocusChange && _this.props.onRangeFocusChange(focusedRange);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updatePreview", function (val) {
+    _defineProperty(_assertThisInitialized(_this), "updatePreview", function (val, mode) {
       var _ranges$focusedRange$;
 
       if (!val) {
@@ -217,7 +217,8 @@ var DateRange = /*#__PURE__*/function (_Component) {
 
       _this.setState({
         preview: _objectSpread(_objectSpread({}, val.range), {}, {
-          color: color
+          color: color,
+          mode: mode
         })
       });
     });
@@ -239,8 +240,8 @@ var DateRange = /*#__PURE__*/function (_Component) {
         focusedRange: this.state.focusedRange,
         onRangeFocusChange: this.handleRangeFocusChange,
         preview: this.state.preview,
-        onPreviewChange: function onPreviewChange(value) {
-          _this2.updatePreview(value ? _this2.calcNewSelection(value) : null);
+        onPreviewChange: function onPreviewChange(value, previewMode) {
+          _this2.updatePreview(value ? _this2.calcNewSelection(value) : null, previewMode);
         }
       }, this.props, {
         displayMode: "dateRange",

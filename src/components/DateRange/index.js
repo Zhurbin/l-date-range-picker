@@ -113,7 +113,7 @@ class DateRange extends Component {
     this.setState({ focusedRange });
     this.props.onRangeFocusChange && this.props.onRangeFocusChange(focusedRange);
   };
-  updatePreview = val => {
+  updatePreview = (val, mode) => {
     if (!val) {
       this.setState({ preview: null });
       return;
@@ -121,7 +121,7 @@ class DateRange extends Component {
     const { rangeColors, ranges } = this.props;
     const focusedRange = this.props.focusedRange || this.state.focusedRange;
     const color = ranges[focusedRange[0]]?.color || rangeColors[focusedRange[0]] || color;
-    this.setState({ preview: { ...val.range, color } });
+    this.setState({ preview: { ...val.range, color, mode } });
   };
   render() {
     return (
@@ -129,8 +129,8 @@ class DateRange extends Component {
         focusedRange={this.state.focusedRange}
         onRangeFocusChange={this.handleRangeFocusChange}
         preview={this.state.preview}
-        onPreviewChange={value => {
-          this.updatePreview(value ? this.calcNewSelection(value) : null);
+        onPreviewChange={(value, previewMode) => {
+          this.updatePreview(value ? this.calcNewSelection(value) : null, previewMode);
         }}
         {...this.props}
         displayMode="dateRange"

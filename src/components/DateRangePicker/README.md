@@ -3,8 +3,9 @@ This component wraps **[DefinedRange](#definedrange)** and **[Calendar](#calenda
 #### Example: Dafault view
 
 ```jsx inside Markdown
-import { addDays } from 'date-fns';
+import { addDays, endOfDay, startOfDay } from 'date-fns';
 import { useState } from 'react';
+import { createStaticRanges } from 'date-range-picker';
 
 const [state, setState] = useState([
   {
@@ -13,6 +14,51 @@ const [state, setState] = useState([
     // color: '#E4F7FB',
     key: 'selection'
   }
+]);
+
+const getStaticRanges = () => createStaticRanges([
+  {
+    label: 'Today',
+    range: () => ({
+      startDate: startOfDay(new Date()),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Last 2 days',
+    range: () => ({
+      startDate: startOfDay(addDays(new Date(), -1)),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Last 7 days',
+    range: () => ({
+      startDate: addDays(new Date(), -6),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Last 30 days',
+    range: () => ({
+      startDate: addDays(new Date(), -29),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Custom range',
+    range: () => ({
+      startDate: undefined,
+      endDate: undefined,
+    }),
+    isSelected: (range) => {
+      if (!range.startDate && !range.endDate) {
+        return true;
+      }
+
+      return false;
+    },
+  },
 ]);
 
 <DateRangePicker
@@ -28,6 +74,7 @@ const [state, setState] = useState([
   editableDateInputs
   onChange={item => setState([item.selection])}
   inputRanges={[]}
+  staticRanges={getStaticRanges()}
 />;
 ```
 

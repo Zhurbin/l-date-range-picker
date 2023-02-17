@@ -191,9 +191,13 @@
         color: #fff;
       }
 
-.rdrDayToday:not(.rdrDayHovered) .rdrStartEdge ~ .rdrDayNumber,.rdrDayToday:not(.rdrDayHovered) .rdrEndEdge ~ .rdrDayNumber{
+.rdrDayToday .rdrStartEdge ~ .rdrDayNumber,.rdrDayToday .rdrEndEdge ~ .rdrDayNumber,.rdrDayToday .rdrDayStartPreview ~ .rdrDayNumber,.rdrDayToday .rdrDayEndPreview ~ .rdrDayNumber{
       background: #61CFE9;
     }
+
+.rdrDayToday .rdrStartEdge ~ .rdrDayNumber span, .rdrDayToday .rdrEndEdge ~ .rdrDayNumber span, .rdrDayToday .rdrDayStartPreview ~ .rdrDayNumber span, .rdrDayToday .rdrDayEndPreview ~ .rdrDayNumber span {
+        color: #fff;
+      }
 
 .rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge{
   background: currentColor;

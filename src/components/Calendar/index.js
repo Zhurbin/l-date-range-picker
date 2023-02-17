@@ -111,7 +111,7 @@ class Calendar extends PureComponent {
     const newFocus = calcFocusDate(this.state.focusedDate, newProps);
     this.focusToDate(newFocus, newProps, false);
   };
-  updatePreview = val => {
+  updatePreview = (val, mode) => {
     if (!val) {
       this.setState({ preview: null });
       return;
@@ -120,6 +120,7 @@ class Calendar extends PureComponent {
       startDate: val,
       endDate: val,
       color: this.props.color,
+      mode,
     };
     this.setState({ preview });
   };
@@ -618,6 +619,7 @@ Calendar.propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
     color: PropTypes.string,
+    mode: PropTypes.string,
   }),
   dateDisplayFormat: PropTypes.string,
   monthDisplayFormat: PropTypes.string,

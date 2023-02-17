@@ -37,7 +37,9 @@ class DefinedRange extends Component {
 
   getSelectedRange(ranges, staticRange) {
     const focusedRangeIndex = ranges.findIndex(range => {
-      if (!range.startDate || !range.endDate || range.disabled) return false;
+      const isEmptyDates = !range.startDate && !range.endDate;
+      if (!isEmptyDates && (!range.startDate || !range.endDate || range.disabled)) return false;
+      if (!staticRange.isSelected) return false;
       return staticRange.isSelected(range);
     });
     const selectedRange = ranges[focusedRangeIndex];
@@ -85,9 +87,13 @@ class DefinedRange extends Component {
                 // }}
                 key={i}
                 onClick={() => this.handleRangeChange(staticRange.range(this.props))}
-                onFocus={() => onPreviewChange && onPreviewChange(staticRange.range(this.props))}
+                onFocus={() =>
+                  onPreviewChange &&
+                  onPreviewChange(staticRange.range(this.props), 'fromDefinedRangeHover')
+                }
                 onMouseOver={() =>
-                  onPreviewChange && onPreviewChange(staticRange.range(this.props))
+                  onPreviewChange &&
+                  onPreviewChange(staticRange.range(this.props), 'fromDefinedRangeHover')
                 }
                 onMouseLeave={() => {
                   onPreviewChange && onPreviewChange();

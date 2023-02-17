@@ -102,7 +102,9 @@ var DefinedRange = /*#__PURE__*/function (_Component) {
     key: "getSelectedRange",
     value: function getSelectedRange(ranges, staticRange) {
       var focusedRangeIndex = ranges.findIndex(function (range) {
-        if (!range.startDate || !range.endDate || range.disabled) return false;
+        var isEmptyDates = !range.startDate && !range.endDate;
+        if (!isEmptyDates && (!range.startDate || !range.endDate || range.disabled)) return false;
+        if (!staticRange.isSelected) return false;
         return staticRange.isSelected(range);
       });
       var selectedRange = ranges[focusedRangeIndex];
@@ -155,10 +157,10 @@ var DefinedRange = /*#__PURE__*/function (_Component) {
             return _this2.handleRangeChange(staticRange.range(_this2.props));
           },
           onFocus: function onFocus() {
-            return onPreviewChange && onPreviewChange(staticRange.range(_this2.props));
+            return onPreviewChange && onPreviewChange(staticRange.range(_this2.props), 'fromDefinedRangeHover');
           },
           onMouseOver: function onMouseOver() {
-            return onPreviewChange && onPreviewChange(staticRange.range(_this2.props));
+            return onPreviewChange && onPreviewChange(staticRange.range(_this2.props), 'fromDefinedRangeHover');
           },
           onMouseLeave: function onMouseLeave() {
             onPreviewChange && onPreviewChange();

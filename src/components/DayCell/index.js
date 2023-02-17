@@ -87,8 +87,10 @@ class DayCell extends Component {
     if (!preview) return null;
     const startDate = preview.startDate ? endOfDay(preview.startDate) : null;
     const endDate = preview.endDate ? startOfDay(preview.endDate) : null;
-    const isInRange =
-      (!startDate || isAfter(day, startDate)) && (!endDate || isBefore(day, endDate));
+    const isEmptyDates = !startDate && !endDate;
+    const isInRange = isEmptyDates
+      ? false
+      : (!startDate || isAfter(day, startDate)) && (!endDate || isBefore(day, endDate));
     const isStartEdge = !isInRange && isSameDay(day, startDate);
     const isEndEdge = !isInRange && isSameDay(day, endDate);
     return (
@@ -103,7 +105,10 @@ class DayCell extends Component {
     );
   };
   renderSelectionPlaceholders = () => {
-    const { styles, ranges, day } = this.props;
+    const { preview, styles, ranges, day } = this.props;
+    if (preview?.mode === 'fromDefinedRangeHover') {
+      return null;
+    }
     if (this.props.displayMode === 'date') {
       let isSelected = isSameDay(this.props.day, this.props.date);
       return isSelected ? (
@@ -153,7 +158,7 @@ class DayCell extends Component {
   };
 
   render() {
-    const { preview, dayContentRenderer } = this.props;
+    const { dayContentRenderer } = this.props;
     return (
       <button
         type="button"
@@ -169,7 +174,7 @@ class DayCell extends Component {
         className={this.getClassNames(this.props.styles)}
         {...(this.props.disabled || this.props.isPassive ? { tabIndex: -1 } : {})}
         style={{ color: this.props.color }}>
-        {preview ? null : this.renderSelectionPlaceholders()}
+        {this.renderSelectionPlaceholders()}
         {this.renderPreviewPlaceholder()}
         <span className={this.props.styles.dayNumber}>
           {dayContentRenderer?.(this.props.day) || (
@@ -202,6 +207,7 @@ DayCell.propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
     color: PropTypes.string,
+    mode: PropTypes.string,
   }),
   onPreviewChange: PropTypes.func,
   previewColor: PropTypes.string,

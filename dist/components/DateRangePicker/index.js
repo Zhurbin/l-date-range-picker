@@ -83,8 +83,8 @@ var DateRangePicker = /*#__PURE__*/function (_Component) {
         className: (0, _classnames.default)(this.styles.dateRangePickerWrapper, this.props.className)
       }, /*#__PURE__*/_react.default.createElement(_DefinedRange.default, _extends({
         focusedRange: focusedRange,
-        onPreviewChange: function onPreviewChange(value) {
-          return _this2.dateRange.updatePreview(value ? _this2.dateRange.calcNewSelection(value, typeof value === 'string') : null);
+        onPreviewChange: function onPreviewChange(value, previewMode) {
+          return _this2.dateRange.updatePreview(value ? _this2.dateRange.calcNewSelection(value, typeof value === 'string') : null, previewMode);
         }
       }, this.props, {
         range: this.props.ranges[focusedRange[0]],

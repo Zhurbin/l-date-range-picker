@@ -203,10 +203,14 @@
   }
 }
 
-.rdrDayToday:not(.rdrDayHovered)  {
-  .rdrStartEdge, .rdrEndEdge {
+.rdrDayToday {
+  .rdrStartEdge, .rdrEndEdge,
+  .rdrDayStartPreview, .rdrDayEndPreview {
     & ~ .rdrDayNumber{
       background: #61CFE9;
+      span {
+        color: #fff;
+      }
     }
   }
 }

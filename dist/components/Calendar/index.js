@@ -176,7 +176,7 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
       _this.focusToDate(newFocus, newProps, false);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updatePreview", function (val) {
+    _defineProperty(_assertThisInitialized(_this), "updatePreview", function (val, mode) {
       if (!val) {
         _this.setState({
           preview: null
@@ -188,7 +188,8 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
       var preview = {
         startDate: val,
         endDate: val,
-        color: _this.props.color
+        color: _this.props.color,
+        mode: mode
       };
 
       _this.setState({
@@ -822,7 +823,8 @@ Calendar.propTypes = {
   preview: _propTypes.default.shape({
     startDate: _propTypes.default.object,
     endDate: _propTypes.default.object,
-    color: _propTypes.default.string
+    color: _propTypes.default.string,
+    mode: _propTypes.default.string
   }),
   dateDisplayFormat: _propTypes.default.string,
   monthDisplayFormat: _propTypes.default.string,

@@ -20,9 +20,10 @@ class DateRangePicker extends Component {
       <div className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}>
         <DefinedRange
           focusedRange={focusedRange}
-          onPreviewChange={value =>
+          onPreviewChange={(value, previewMode) =>
             this.dateRange.updatePreview(
-              value ? this.dateRange.calcNewSelection(value, typeof value === 'string') : null
+              value ? this.dateRange.calcNewSelection(value, typeof value === 'string') : null,
+              previewMode
             )
           }
           {...this.props}
