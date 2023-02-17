@@ -109,7 +109,7 @@ class Calendar extends PureComponent {
         }
       : props;
     const newFocus = calcFocusDate(this.state.focusedDate, newProps);
-    this.focusToDate(newFocus, newProps);
+    this.focusToDate(newFocus, newProps, false);
   };
   updatePreview = val => {
     if (!val) {
