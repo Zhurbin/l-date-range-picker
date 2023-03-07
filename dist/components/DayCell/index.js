@@ -11,7 +11,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _classnames4 = _interopRequireDefault(require("classnames"));
+var _classnames6 = _interopRequireDefault(require("classnames"));
 
 var _endOfDay = _interopRequireDefault(require("date-fns/endOfDay"));
 
@@ -159,7 +159,7 @@ var DayCell = /*#__PURE__*/function (_Component) {
           isEndOfMonth = _this$props3.isEndOfMonth,
           disabled = _this$props3.disabled,
           styles = _this$props3.styles;
-      return (0, _classnames4.default)(styles.day, (_classnames = {}, _defineProperty(_classnames, styles.dayPassive, isPassive), _defineProperty(_classnames, styles.dayDisabled, disabled), _defineProperty(_classnames, styles.dayToday, isToday), _defineProperty(_classnames, styles.dayWeekend, isWeekend), _defineProperty(_classnames, styles.dayStartOfWeek, isStartOfWeek), _defineProperty(_classnames, styles.dayEndOfWeek, isEndOfWeek), _defineProperty(_classnames, styles.dayStartOfMonth, isStartOfMonth), _defineProperty(_classnames, styles.dayEndOfMonth, isEndOfMonth), _defineProperty(_classnames, styles.dayHovered, _this.state.hover), _defineProperty(_classnames, styles.dayActive, _this.state.active), _classnames));
+      return (0, _classnames6.default)(styles.day, (_classnames = {}, _defineProperty(_classnames, styles.dayPassive, isPassive), _defineProperty(_classnames, styles.dayDisabled, disabled), _defineProperty(_classnames, styles.dayToday, isToday), _defineProperty(_classnames, styles.dayWeekend, isWeekend), _defineProperty(_classnames, styles.dayStartOfWeek, isStartOfWeek), _defineProperty(_classnames, styles.dayEndOfWeek, isEndOfWeek), _defineProperty(_classnames, styles.dayStartOfMonth, isStartOfMonth), _defineProperty(_classnames, styles.dayEndOfMonth, isEndOfMonth), _defineProperty(_classnames, styles.dayHovered, _this.state.hover), _defineProperty(_classnames, styles.dayActive, _this.state.active), _classnames));
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderPreviewPlaceholder", function () {
@@ -177,7 +177,7 @@ var DayCell = /*#__PURE__*/function (_Component) {
       var isStartEdge = !isInRange && (0, _isSameDay.default)(day, startDate);
       var isEndEdge = !isInRange && (0, _isSameDay.default)(day, endDate);
       return /*#__PURE__*/_react.default.createElement("span", {
-        className: (0, _classnames4.default)((_classnames2 = {}, _defineProperty(_classnames2, styles.dayStartPreview, isStartEdge), _defineProperty(_classnames2, styles.dayInPreview, isInRange), _defineProperty(_classnames2, styles.dayEndPreview, isEndEdge), _classnames2)),
+        className: (0, _classnames6.default)((_classnames2 = {}, _defineProperty(_classnames2, styles.dayStartPreview, isStartEdge), _defineProperty(_classnames2, styles.dayInPreview, isInRange), _defineProperty(_classnames2, styles.dayEndPreview, isEndEdge), _classnames2)),
         style: {
           color: preview.color
         }
@@ -233,15 +233,19 @@ var DayCell = /*#__PURE__*/function (_Component) {
         return result;
       }, []);
       return inRanges.map(function (range, i) {
-        var _classnames3;
+        var _classnames3, _classnames4, _classnames5;
 
         return /*#__PURE__*/_react.default.createElement("span", {
           key: i,
-          className: (0, _classnames4.default)((_classnames3 = {}, _defineProperty(_classnames3, styles.startEdge, range.isStartEdge), _defineProperty(_classnames3, styles.endEdge, range.isEndEdge), _defineProperty(_classnames3, styles.inRange, range.isInRange), _classnames3)),
+          className: (0, _classnames6.default)((_classnames3 = {}, _defineProperty(_classnames3, styles.startEdge, range.isStartEdge), _defineProperty(_classnames3, styles.endEdge, range.isEndEdge), _defineProperty(_classnames3, styles.inRange, range.isInRange), _classnames3)),
           style: {
             color: range.color || _this.props.color
           }
-        });
+        }, /*#__PURE__*/_react.default.createElement("span", {
+          className: (0, _classnames6.default)((_classnames4 = {}, _defineProperty(_classnames4, styles.startEdgeCoverFloor, range.isStartEdge), _defineProperty(_classnames4, styles.endEdgeCoverFloor, range.isEndEdge), _classnames4))
+        }), /*#__PURE__*/_react.default.createElement("span", {
+          className: (0, _classnames6.default)((_classnames5 = {}, _defineProperty(_classnames5, styles.startEdgeCover, range.isStartEdge), _defineProperty(_classnames5, styles.endEdgeCover, range.isEndEdge), _defineProperty(_classnames5, styles.inRangeCover, range.isInRange), _classnames5))
+        }));
       });
     });
 

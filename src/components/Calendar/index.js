@@ -443,6 +443,7 @@ class Calendar extends PureComponent {
       navigatorRenderer,
       className,
       preview,
+      monthStyle,
     } = this.props;
     const { scrollArea, focusedDate } = this.state;
     const isVertical = direction === 'vertical';
@@ -508,10 +509,11 @@ class Calendar extends PureComponent {
                         styles={this.styles}
                         style={
                           isVertical
-                            ? { height: this.estimateMonthSize(index) }
+                            ? { height: this.estimateMonthSize(index), ...monthStyle }
                             : {
                                 height: scrollArea.monthHeight,
                                 width: this.estimateMonthSize(index),
+                                ...monthStyle,
                               }
                         }
                         showMonthName
@@ -554,6 +556,7 @@ class Calendar extends PureComponent {
                   styles={this.styles}
                   showWeekDays={!isVertical || i === 0}
                   showMonthName={!isVertical || i > 0}
+                  style={monthStyle}
                 />
               );
             })}
@@ -597,6 +600,7 @@ Calendar.defaultProps = {
   calendarFocus: 'forwards',
   preventSnapRefocus: false,
   ariaLabels: {},
+  monthStyle: {},
 };
 
 Calendar.propTypes = {
@@ -654,6 +658,7 @@ Calendar.propTypes = {
   calendarFocus: PropTypes.string,
   preventSnapRefocus: PropTypes.bool,
   ariaLabels: ariaLabelsShape,
+  monthStyle: PropTypes.object,
 };
 
 export default Calendar;

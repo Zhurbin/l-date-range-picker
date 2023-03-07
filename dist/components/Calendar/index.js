@@ -655,7 +655,8 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
           color = _this$props7.color,
           navigatorRenderer = _this$props7.navigatorRenderer,
           className = _this$props7.className,
-          preview = _this$props7.preview;
+          preview = _this$props7.preview,
+          monthStyle = _this$props7.monthStyle;
       var _this$state = this.state,
           scrollArea = _this$state.scrollArea,
           focusedDate = _this$state.focusedDate;
@@ -724,12 +725,12 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
               return onPreviewChange && onPreviewChange();
             },
             styles: _this5.styles,
-            style: isVertical ? {
+            style: isVertical ? _objectSpread({
               height: _this5.estimateMonthSize(index)
-            } : {
+            }, monthStyle) : _objectSpread({
               height: scrollArea.monthHeight,
               width: _this5.estimateMonthSize(index)
-            },
+            }, monthStyle),
             showMonthName: true,
             showWeekDays: !isVertical
           }));
@@ -761,7 +762,8 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
           },
           styles: _this5.styles,
           showWeekDays: !isVertical || i === 0,
-          showMonthName: !isVertical || i > 0
+          showMonthName: !isVertical || i > 0,
+          style: monthStyle
         }));
       })));
     }
@@ -802,7 +804,8 @@ Calendar.defaultProps = {
   fixedHeight: false,
   calendarFocus: 'forwards',
   preventSnapRefocus: false,
-  ariaLabels: {}
+  ariaLabels: {},
+  monthStyle: {}
 };
 Calendar.propTypes = {
   showMonthArrow: _propTypes.default.bool,
@@ -858,7 +861,8 @@ Calendar.propTypes = {
   fixedHeight: _propTypes.default.bool,
   calendarFocus: _propTypes.default.string,
   preventSnapRefocus: _propTypes.default.bool,
-  ariaLabels: _accessibility.ariaLabelsShape
+  ariaLabels: _accessibility.ariaLabelsShape,
+  monthStyle: _propTypes.default.object
 };
 var _default = Calendar;
 exports.default = _default;

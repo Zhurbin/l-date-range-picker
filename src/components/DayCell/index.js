@@ -152,8 +152,30 @@ class DayCell extends Component {
           [styles.endEdge]: range.isEndEdge,
           [styles.inRange]: range.isInRange,
         })}
-        style={{ color: range.color || this.props.color }}
-      />
+        style={{ color: range.color || this.props.color }}>
+        <span
+          className={classnames({
+            [styles.startEdgeCoverFloor]: range.isStartEdge,
+            [styles.endEdgeCoverFloor]: range.isEndEdge,
+          })}
+        />
+        <span
+          className={classnames({
+            [styles.startEdgeCover]: range.isStartEdge,
+            [styles.endEdgeCover]: range.isEndEdge,
+            [styles.inRangeCover]: range.isInRange,
+          })}
+        />
+        {/* <span
+          key={i}
+          className={classnames({
+            [styles.startEdge]: range.isStartEdge,
+            [styles.endEdge]: range.isEndEdge,
+            [styles.inRange]: range.isInRange,
+          })}
+          style={{ color: range.color || this.props.color }}
+        /> */}
+      </span>
     ));
   };
 

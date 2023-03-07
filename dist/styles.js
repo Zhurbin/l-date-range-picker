@@ -60,6 +60,11 @@ var _default = {
   monthAndYearWrapperVertical: 'rdrMonthAndYearWrapperVertical',
   nextButtonVertical: 'rdrNextButtonVertical',
   prevButtonVertical: 'rdrPrevButtonVertical',
-  nextPrevButtonVertical: 'rdrNextPrevButtonVertical'
+  nextPrevButtonVertical: 'rdrNextPrevButtonVertical',
+  startEdgeCover: 'rdrStartEdgeCover',
+  inRangeCover: 'rdrInRangeCover',
+  endEdgeCover: 'rdrEndEdgeCover',
+  startEdgeCoverFloor: 'rdrStartEdgeCoverFloor',
+  endEdgeCoverFloor: 'rdrEndEdgeCoverFloor'
 };
 exports.default = _default;
