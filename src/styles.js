@@ -55,4 +55,9 @@ export default {
   nextButtonVertical: 'rdrNextButtonVertical',
   prevButtonVertical: 'rdrPrevButtonVertical',
   nextPrevButtonVertical: 'rdrNextPrevButtonVertical',
+  startEdgeCover: 'rdrStartEdgeCover',
+  inRangeCover: 'rdrInRangeCover',
+  endEdgeCover: 'rdrEndEdgeCover',
+  startEdgeCoverFloor: 'rdrStartEdgeCoverFloor',
+  endEdgeCoverFloor: 'rdrEndEdgeCoverFloor',
 };

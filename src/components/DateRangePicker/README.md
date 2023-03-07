@@ -1,6 +1,6 @@
 This component wraps **[DefinedRange](#definedrange)** and **[Calendar](#calendar)** components together, and extends all the props of them.
 
-#### Example: Dafault view
+#### Example: Default view
 
 ```jsx inside Markdown
 import { addDays, endOfDay, startOfDay } from 'date-fns';
@@ -75,6 +75,87 @@ const getStaticRanges = () => createStaticRanges([
   onChange={item => setState([item.selection])}
   inputRanges={[]}
   staticRanges={getStaticRanges()}
+/>;
+```
+
+#### Example: Wide view
+
+```jsx inside Markdown
+import { addDays, endOfDay, startOfDay } from 'date-fns';
+import { useState } from 'react';
+import { createStaticRanges } from 'date-range-picker';
+
+const [state, setState] = useState([
+  {
+    startDate: new Date(),
+    endDate: addDays(new Date(), 7),
+    // color: '#E4F7FB',
+    key: 'selection'
+  }
+]);
+
+const getStaticRanges = () => createStaticRanges([
+  {
+    label: 'Today',
+    range: () => ({
+      startDate: startOfDay(new Date()),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Last 2 days',
+    range: () => ({
+      startDate: startOfDay(addDays(new Date(), -1)),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Last 7 days',
+    range: () => ({
+      startDate: addDays(new Date(), -6),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Last 30 days',
+    range: () => ({
+      startDate: addDays(new Date(), -29),
+      endDate: endOfDay(new Date()),
+    }),
+  },
+  {
+    label: 'Custom range',
+    range: () => ({
+      startDate: undefined,
+      endDate: undefined,
+    }),
+    isSelected: (range) => {
+      if (!range.startDate && !range.endDate) {
+        return true;
+      }
+
+      return false;
+    },
+  },
+]);
+
+<DateRangePicker
+  ranges={state}
+  months={1}
+  direction='vertical'
+  scroll={{
+    enabled: true,
+    calendarHeight: 257,
+  }}
+  moveRangeOnFirstSelection={false}
+  navigatorRenderer={(() => {})}
+  editableDateInputs
+  onChange={item => setState([item.selection])}
+  inputRanges={[]}
+  staticRanges={getStaticRanges()}
+  monthStyle={{
+    width: '300px',
+  }}
 />;
 ```
 
