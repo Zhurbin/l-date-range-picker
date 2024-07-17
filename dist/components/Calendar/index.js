@@ -1,301 +1,157 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _DayCell = require("../DayCell");
-
 var _Month = _interopRequireDefault(require("../Month"));
-
 var _DateInput = _interopRequireDefault(require("../DateInput"));
-
 var _utils = require("../../utils");
-
-var _classnames3 = _interopRequireDefault(require("classnames"));
-
+var _classnames = _interopRequireDefault(require("classnames"));
 var _reactList = _interopRequireDefault(require("react-list"));
-
 var _shallowEqual = require("shallow-equal");
-
-var _max = _interopRequireDefault(require("date-fns/max"));
-
-var _min = _interopRequireDefault(require("date-fns/min"));
-
-var _differenceInDays = _interopRequireDefault(require("date-fns/differenceInDays"));
-
-var _isSameMonth = _interopRequireDefault(require("date-fns/isSameMonth"));
-
-var _addDays = _interopRequireDefault(require("date-fns/addDays"));
-
-var _endOfMonth = _interopRequireDefault(require("date-fns/endOfMonth"));
-
-var _startOfMonth = _interopRequireDefault(require("date-fns/startOfMonth"));
-
-var _differenceInCalendarMonths = _interopRequireDefault(require("date-fns/differenceInCalendarMonths"));
-
-var _setMonth2 = _interopRequireDefault(require("date-fns/setMonth"));
-
-var _setYear2 = _interopRequireDefault(require("date-fns/setYear"));
-
-var _addYears = _interopRequireDefault(require("date-fns/addYears"));
-
-var _isSameDay = _interopRequireDefault(require("date-fns/isSameDay"));
-
-var _endOfWeek = _interopRequireDefault(require("date-fns/endOfWeek"));
-
-var _startOfWeek = _interopRequireDefault(require("date-fns/startOfWeek"));
-
-var _eachDayOfInterval = _interopRequireDefault(require("date-fns/eachDayOfInterval"));
-
-var _format = _interopRequireDefault(require("date-fns/format"));
-
-var _subMonths = _interopRequireDefault(require("date-fns/subMonths"));
-
-var _addMonths = _interopRequireDefault(require("date-fns/addMonths"));
-
-var _enUS = _interopRequireDefault(require("date-fns/locale/en-US"));
-
+var _dateFns = require("date-fns");
+var _enUS = require("date-fns/locale/en-US");
 var _styles = _interopRequireDefault(require("../../styles"));
-
 var _accessibility = require("../../accessibility");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var Calendar = /*#__PURE__*/function (_PureComponent) {
-  _inherits(Calendar, _PureComponent);
-
-  var _super = _createSuper(Calendar);
-
-  function Calendar(_props, context) {
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+class Calendar extends _react.PureComponent {
+  constructor(_props, context) {
     var _this;
-
-    _classCallCheck(this, Calendar);
-
-    _this = _super.call(this, _props, context);
-
-    _defineProperty(_assertThisInitialized(_this), "customScrollTo", function (index) {
-      var padding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    super(_props, context);
+    _this = this;
+    _defineProperty(this, "customScrollTo", function (index) {
+      let padding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       if (index != null) _this.list.setScroll(_this.list.getSpaceBefore(index) - padding);
     });
-
-    _defineProperty(_assertThisInitialized(_this), "focusToDate", function (date) {
-      var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _this.props;
-      var preventUnnecessary = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
+    _defineProperty(this, "focusToDate", function (date) {
+      let props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _this.props;
+      let preventUnnecessary = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
       if (!props.scroll.enabled) {
         if (preventUnnecessary && props.preventSnapRefocus) {
-          var focusedDateDiff = (0, _differenceInCalendarMonths.default)(date, _this.state.focusedDate);
-          var isAllowedForward = props.calendarFocus === 'forwards' && focusedDateDiff >= 0;
-          var isAllowedBackward = props.calendarFocus === 'backwards' && focusedDateDiff <= 0;
-
+          const focusedDateDiff = (0, _dateFns.differenceInCalendarMonths)(date, _this.state.focusedDate);
+          const isAllowedForward = props.calendarFocus === 'forwards' && focusedDateDiff >= 0;
+          const isAllowedBackward = props.calendarFocus === 'backwards' && focusedDateDiff <= 0;
           if ((isAllowedForward || isAllowedBackward) && Math.abs(focusedDateDiff) < props.months) {
             return;
           }
         }
-
         _this.setState({
           focusedDate: date
         });
-
         return;
       }
-
-      var targetMonthIndex = (0, _differenceInCalendarMonths.default)(date, props.minDate, _this.dateOptions);
-
-      var visibleMonths = _this.list.getVisibleRange();
-
+      const targetMonthIndex = (0, _dateFns.differenceInCalendarMonths)(date, props.minDate, _this.dateOptions);
+      const visibleMonths = _this.list.getVisibleRange();
       if (preventUnnecessary && visibleMonths.includes(targetMonthIndex)) return;
-      _this.isFirstRender = true; // Use custom scroll function, cause list.scrollTo not supported paddings
+      _this.isFirstRender = true;
 
+      // Use custom scroll function, cause list.scrollTo not supported paddings
       _this.customScrollTo(targetMonthIndex, preventUnnecessary ? 0 : 16);
-
       _this.setState({
         focusedDate: date
       });
     });
-
-    _defineProperty(_assertThisInitialized(_this), "updateShownDate", function () {
-      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this.props;
-      var newProps = props.scroll.enabled ? _objectSpread(_objectSpread({}, props), {}, {
+    _defineProperty(this, "updateShownDate", function () {
+      let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this.props;
+      const newProps = props.scroll.enabled ? {
+        ...props,
         months: _this.list.getVisibleRange().length
-      }) : props;
-      var newFocus = (0, _utils.calcFocusDate)(_this.state.focusedDate, newProps);
-
+      } : props;
+      const newFocus = (0, _utils.calcFocusDate)(_this.state.focusedDate, newProps);
       _this.focusToDate(newFocus, newProps, false);
     });
-
-    _defineProperty(_assertThisInitialized(_this), "updatePreview", function (val, mode) {
+    _defineProperty(this, "updatePreview", (val, mode) => {
       if (!val) {
-        _this.setState({
+        this.setState({
           preview: null
         });
-
         return;
       }
-
-      var preview = {
+      const preview = {
         startDate: val,
         endDate: val,
-        color: _this.props.color,
-        mode: mode
+        color: this.props.color,
+        mode
       };
-
-      _this.setState({
-        preview: preview
+      this.setState({
+        preview
       });
     });
-
-    _defineProperty(_assertThisInitialized(_this), "changeShownDate", function (value) {
-      var mode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'set';
-      var focusedDate = _this.state.focusedDate;
-      var _this$props = _this.props,
-          onShownDateChange = _this$props.onShownDateChange,
-          minDate = _this$props.minDate,
-          maxDate = _this$props.maxDate;
-      var modeMapper = {
-        monthOffset: function monthOffset() {
-          return (0, _addMonths.default)(focusedDate, value);
-        },
-        setMonth: function (_setMonth) {
-          function setMonth() {
-            return _setMonth.apply(this, arguments);
-          }
-
-          setMonth.toString = function () {
-            return _setMonth.toString();
-          };
-
-          return setMonth;
-        }(function () {
-          return (0, _setMonth2.default)(focusedDate, value);
-        }),
-        setYear: function (_setYear) {
-          function setYear() {
-            return _setYear.apply(this, arguments);
-          }
-
-          setYear.toString = function () {
-            return _setYear.toString();
-          };
-
-          return setYear;
-        }(function () {
-          return (0, _setYear2.default)(focusedDate, value);
-        }),
-        set: function set() {
-          return value;
-        }
+    _defineProperty(this, "changeShownDate", function (value) {
+      let mode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'set';
+      const {
+        focusedDate
+      } = _this.state;
+      const {
+        onShownDateChange,
+        minDate,
+        maxDate
+      } = _this.props;
+      const modeMapper = {
+        monthOffset: () => (0, _dateFns.addMonths)(focusedDate, value),
+        setMonth: () => (0, _dateFns.setMonth)(focusedDate, value),
+        setYear: () => (0, _dateFns.setYear)(focusedDate, value),
+        set: () => value
       };
-      var newDate = (0, _min.default)([(0, _max.default)([modeMapper[mode](), minDate]), maxDate]);
-
+      const newDate = (0, _dateFns.min)([(0, _dateFns.max)([modeMapper[mode](), minDate]), maxDate]);
       _this.focusToDate(newDate, _this.props, false);
-
       onShownDateChange && onShownDateChange(newDate);
     });
-
-    _defineProperty(_assertThisInitialized(_this), "handleRangeFocusChange", function (rangesIndex, rangeItemIndex) {
-      _this.props.onRangeFocusChange && _this.props.onRangeFocusChange([rangesIndex, rangeItemIndex]);
+    _defineProperty(this, "handleRangeFocusChange", (rangesIndex, rangeItemIndex) => {
+      this.props.onRangeFocusChange && this.props.onRangeFocusChange([rangesIndex, rangeItemIndex]);
     });
-
-    _defineProperty(_assertThisInitialized(_this), "handleScroll", function () {
-      var _this$props2 = _this.props,
-          onShownDateChange = _this$props2.onShownDateChange,
-          minDate = _this$props2.minDate;
-      var focusedDate = _this.state.focusedDate;
-
-      var _assertThisInitialize = _assertThisInitialized(_this),
-          isFirstRender = _assertThisInitialize.isFirstRender;
-
-      var visibleMonths = _this.list.getVisibleRange(); // prevent scroll jump with wrong visible value
-
-
+    _defineProperty(this, "handleScroll", () => {
+      const {
+        onShownDateChange,
+        minDate
+      } = this.props;
+      const {
+        focusedDate
+      } = this.state;
+      const {
+        isFirstRender
+      } = this;
+      const visibleMonths = this.list.getVisibleRange();
+      // prevent scroll jump with wrong visible value
       if (visibleMonths[0] === undefined) return;
-      var visibleMonth = (0, _addMonths.default)(minDate, visibleMonths[0] || 0);
-      var isFocusedToDifferent = !(0, _isSameMonth.default)(visibleMonth, focusedDate);
-
+      const visibleMonth = (0, _dateFns.addMonths)(minDate, visibleMonths[0] || 0);
+      const isFocusedToDifferent = !(0, _dateFns.isSameMonth)(visibleMonth, focusedDate);
       if (isFocusedToDifferent && !isFirstRender) {
-        _this.setState({
+        this.setState({
           focusedDate: visibleMonth
         });
-
         onShownDateChange && onShownDateChange(visibleMonth);
       }
-
-      _this.isFirstRender = false;
+      this.isFirstRender = false;
     });
-
-    _defineProperty(_assertThisInitialized(_this), "renderMonthAndYear", function (focusedDate, changeShownDate, props) {
-      var showMonthArrow = props.showMonthArrow,
-          minDate = props.minDate,
-          maxDate = props.maxDate,
-          showMonthAndYearPickers = props.showMonthAndYearPickers,
-          ariaLabels = props.ariaLabels;
-      var upperYearLimit = (maxDate || Calendar.defaultProps.maxDate).getFullYear();
-      var lowerYearLimit = (minDate || Calendar.defaultProps.minDate).getFullYear();
-      var styles = _this.styles;
+    _defineProperty(this, "renderMonthAndYear", (focusedDate, changeShownDate, props) => {
+      const {
+        showMonthArrow,
+        minDate,
+        maxDate,
+        showMonthAndYearPickers,
+        ariaLabels
+      } = props;
+      const upperYearLimit = (maxDate || Calendar.defaultProps.maxDate).getFullYear();
+      const lowerYearLimit = (minDate || Calendar.defaultProps.minDate).getFullYear();
+      const styles = this.styles;
       return /*#__PURE__*/_react.default.createElement("div", {
-        onMouseUp: function onMouseUp(e) {
-          return e.stopPropagation();
-        },
+        onMouseUp: e => e.stopPropagation(),
         className: styles.monthAndYearWrapper
       }, showMonthArrow ? /*#__PURE__*/_react.default.createElement("button", {
         type: "button",
-        className: (0, _classnames3.default)(styles.nextPrevButton, styles.prevButton),
-        onClick: function onClick() {
-          return changeShownDate(-1, 'monthOffset');
-        },
+        className: (0, _classnames.default)(styles.nextPrevButton, styles.prevButton),
+        onClick: () => changeShownDate(-1, 'monthOffset'),
         "aria-label": ariaLabels.prevButton
       }, /*#__PURE__*/_react.default.createElement("i", null)) : null, showMonthAndYearPickers ? /*#__PURE__*/_react.default.createElement("span", {
         className: styles.monthAndYearPickers
@@ -303,85 +159,72 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
         className: styles.monthPicker
       }, /*#__PURE__*/_react.default.createElement("select", {
         value: focusedDate.getMonth(),
-        onChange: function onChange(e) {
-          return changeShownDate(e.target.value, 'setMonth');
-        },
+        onChange: e => changeShownDate(e.target.value, 'setMonth'),
         "aria-label": ariaLabels.monthPicker
-      }, _this.state.monthNames.map(function (monthName, i) {
-        return /*#__PURE__*/_react.default.createElement("option", {
-          key: i,
-          value: i
-        }, monthName);
-      }))), /*#__PURE__*/_react.default.createElement("span", {
+      }, this.state.monthNames.map((monthName, i) => /*#__PURE__*/_react.default.createElement("option", {
+        key: i,
+        value: i
+      }, monthName)))), /*#__PURE__*/_react.default.createElement("span", {
         className: styles.monthAndYearDivider
       }), /*#__PURE__*/_react.default.createElement("span", {
         className: styles.yearPicker
       }, /*#__PURE__*/_react.default.createElement("select", {
         value: focusedDate.getFullYear(),
-        onChange: function onChange(e) {
-          return changeShownDate(e.target.value, 'setYear');
-        },
+        onChange: e => changeShownDate(e.target.value, 'setYear'),
         "aria-label": ariaLabels.yearPicker
-      }, new Array(upperYearLimit - lowerYearLimit + 1).fill(upperYearLimit).map(function (val, i) {
-        var year = val - i;
+      }, new Array(upperYearLimit - lowerYearLimit + 1).fill(upperYearLimit).map((val, i) => {
+        const year = val - i;
         return /*#__PURE__*/_react.default.createElement("option", {
           key: year,
           value: year
         }, year);
       })))) : /*#__PURE__*/_react.default.createElement("span", {
         className: styles.monthAndYearPickers
-      }, _this.state.monthNames[focusedDate.getMonth()], " ", focusedDate.getFullYear()), showMonthArrow ? /*#__PURE__*/_react.default.createElement("button", {
+      }, this.state.monthNames[focusedDate.getMonth()], " ", focusedDate.getFullYear()), showMonthArrow ? /*#__PURE__*/_react.default.createElement("button", {
         type: "button",
-        className: (0, _classnames3.default)(styles.nextPrevButton, styles.nextButton),
-        onClick: function onClick() {
-          return changeShownDate(+1, 'monthOffset');
-        },
+        className: (0, _classnames.default)(styles.nextPrevButton, styles.nextButton),
+        onClick: () => changeShownDate(+1, 'monthOffset'),
         "aria-label": ariaLabels.nextButton
       }, /*#__PURE__*/_react.default.createElement("i", null)) : null);
     });
-
-    _defineProperty(_assertThisInitialized(_this), "renderMonthAndYearVertical", function (changeShownDate, props) {
-      var showMonthArrow = props.showMonthArrow,
-          ariaLabels = props.ariaLabels;
-      var styles = _this.styles;
+    _defineProperty(this, "renderMonthAndYearVertical", (changeShownDate, props) => {
+      const {
+        showMonthArrow,
+        ariaLabels
+      } = props;
+      const styles = this.styles;
       return /*#__PURE__*/_react.default.createElement("div", {
-        onMouseUp: function onMouseUp(e) {
-          return e.stopPropagation();
-        },
+        onMouseUp: e => e.stopPropagation(),
         className: styles.monthAndYearWrapperVertical
       }, showMonthArrow ? /*#__PURE__*/_react.default.createElement("button", {
         type: "button",
-        className: (0, _classnames3.default)(styles.nextPrevButtonVertical, styles.prevButtonVertical),
-        onClick: function onClick() {
-          return changeShownDate(-1, 'monthOffset');
-        },
+        className: (0, _classnames.default)(styles.nextPrevButtonVertical, styles.prevButtonVertical),
+        onClick: () => changeShownDate(-1, 'monthOffset'),
         "aria-label": ariaLabels.prevButton
       }, /*#__PURE__*/_react.default.createElement("i", null)) : null, showMonthArrow ? /*#__PURE__*/_react.default.createElement("button", {
         type: "button",
-        className: (0, _classnames3.default)(styles.nextPrevButtonVertical, styles.nextButtonVertical),
-        onClick: function onClick() {
-          return changeShownDate(+1, 'monthOffset');
-        },
+        className: (0, _classnames.default)(styles.nextPrevButtonVertical, styles.nextButtonVertical),
+        onClick: () => changeShownDate(+1, 'monthOffset'),
         "aria-label": ariaLabels.nextButton
       }, /*#__PURE__*/_react.default.createElement("i", null)) : null);
     });
-
-    _defineProperty(_assertThisInitialized(_this), "renderDateDisplay", function () {
-      var _this$props3 = _this.props,
-          focusedRange = _this$props3.focusedRange,
-          color = _this$props3.color,
-          ranges = _this$props3.ranges,
-          rangeColors = _this$props3.rangeColors,
-          dateDisplayFormat = _this$props3.dateDisplayFormat,
-          editableDateInputs = _this$props3.editableDateInputs,
-          startDatePlaceholder = _this$props3.startDatePlaceholder,
-          endDatePlaceholder = _this$props3.endDatePlaceholder,
-          ariaLabels = _this$props3.ariaLabels;
-      var defaultColor = rangeColors[focusedRange[0]] || color;
-      var styles = _this.styles;
+    _defineProperty(this, "renderDateDisplay", () => {
+      const {
+        focusedRange,
+        color,
+        ranges,
+        rangeColors,
+        dateDisplayFormat,
+        editableDateInputs,
+        startDatePlaceholder,
+        endDatePlaceholder,
+        ariaLabels
+      } = this.props;
+      const defaultColor = rangeColors[focusedRange[0]] || color;
+      const styles = this.styles;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: styles.dateDisplayWrapper
-      }, ranges.map(function (range, i) {
+      }, ranges.map((range, i) => {
         if (range.showDateDisplay === false || range.disabled && !range.showDateDisplay) return null;
         return /*#__PURE__*/_react.default.createElement("div", {
           className: styles.dateDisplay,
@@ -390,42 +233,41 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
             color: range.color || defaultColor
           }
         }, /*#__PURE__*/_react.default.createElement(_DateInput.default, {
-          className: (0, _classnames3.default)(styles.dateDisplayItem, _defineProperty({}, styles.dateDisplayItemActive, focusedRange[0] === i && focusedRange[1] === 0)),
+          className: (0, _classnames.default)(styles.dateDisplayItem, {
+            [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0
+          }),
           readOnly: !editableDateInputs,
           disabled: range.disabled,
           value: range.startDate,
           placeholder: startDatePlaceholder,
-          dateOptions: _this.dateOptions,
+          dateOptions: this.dateOptions,
           dateDisplayFormat: dateDisplayFormat,
           ariaLabel: ariaLabels.dateInput && ariaLabels.dateInput[range.key] && ariaLabels.dateInput[range.key].startDate,
-          onChange: _this.onDragSelectionEnd,
-          onFocus: function onFocus() {
-            return _this.handleRangeFocusChange(i, 0);
-          }
+          onChange: this.onDragSelectionEnd,
+          onFocus: () => this.handleRangeFocusChange(i, 0)
         }), /*#__PURE__*/_react.default.createElement(_DateInput.default, {
-          className: (0, _classnames3.default)(styles.dateDisplayItem, _defineProperty({}, styles.dateDisplayItemActive, focusedRange[0] === i && focusedRange[1] === 1)),
+          className: (0, _classnames.default)(styles.dateDisplayItem, {
+            [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 1
+          }),
           readOnly: !editableDateInputs,
           disabled: range.disabled,
           value: range.endDate,
           placeholder: endDatePlaceholder,
-          dateOptions: _this.dateOptions,
+          dateOptions: this.dateOptions,
           dateDisplayFormat: dateDisplayFormat,
           ariaLabel: ariaLabels.dateInput && ariaLabels.dateInput[range.key] && ariaLabels.dateInput[range.key].endDate,
-          onChange: _this.onDragSelectionEnd,
-          onFocus: function onFocus() {
-            return _this.handleRangeFocusChange(i, 1);
-          }
+          onChange: this.onDragSelectionEnd,
+          onFocus: () => this.handleRangeFocusChange(i, 1)
         }));
       }));
     });
-
-    _defineProperty(_assertThisInitialized(_this), "onDragSelectionStart", function (date) {
-      var _this$props4 = _this.props,
-          onChange = _this$props4.onChange,
-          dragSelectionEnabled = _this$props4.dragSelectionEnabled;
-
+    _defineProperty(this, "onDragSelectionStart", date => {
+      const {
+        onChange,
+        dragSelectionEnabled
+      } = this.props;
       if (dragSelectionEnabled) {
-        _this.setState({
+        this.setState({
           drag: {
             status: true,
             range: {
@@ -439,51 +281,46 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
         onChange && onChange(date);
       }
     });
-
-    _defineProperty(_assertThisInitialized(_this), "onDragSelectionEnd", function (date) {
-      var _this$props5 = _this.props,
-          updateRange = _this$props5.updateRange,
-          displayMode = _this$props5.displayMode,
-          onChange = _this$props5.onChange,
-          dragSelectionEnabled = _this$props5.dragSelectionEnabled;
+    _defineProperty(this, "onDragSelectionEnd", date => {
+      const {
+        updateRange,
+        displayMode,
+        onChange,
+        dragSelectionEnabled
+      } = this.props;
       if (!dragSelectionEnabled) return;
-
-      if (displayMode === 'date' || !_this.state.drag.status) {
+      if (displayMode === 'date' || !this.state.drag.status) {
         onChange && onChange(date);
         return;
       }
-
-      var newRange = {
-        startDate: _this.state.drag.range.startDate,
+      const newRange = {
+        startDate: this.state.drag.range.startDate,
         endDate: date
       };
-
-      if (displayMode !== 'dateRange' || (0, _isSameDay.default)(newRange.startDate, date)) {
-        _this.setState({
+      if (displayMode !== 'dateRange' || (0, _dateFns.isSameDay)(newRange.startDate, date)) {
+        this.setState({
           drag: {
             status: false,
             range: {}
           }
-        }, function () {
-          return onChange && onChange(date);
-        });
+        }, () => onChange && onChange(date));
       } else {
-        _this.setState({
+        this.setState({
           drag: {
             status: false,
             range: {}
           }
-        }, function () {
+        }, () => {
           updateRange && updateRange(newRange);
         });
       }
     });
-
-    _defineProperty(_assertThisInitialized(_this), "onDragSelectionMove", function (date) {
-      var drag = _this.state.drag;
-      if (!drag.status || !_this.props.dragSelectionEnabled) return;
-
-      _this.setState({
+    _defineProperty(this, "onDragSelectionMove", date => {
+      const {
+        drag
+      } = this.state;
+      if (!drag.status || !this.props.dragSelectionEnabled) return;
+      this.setState({
         drag: {
           status: drag.status,
           range: {
@@ -494,38 +331,36 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
         }
       });
     });
-
-    _defineProperty(_assertThisInitialized(_this), "estimateMonthSize", function (index, cache) {
-      var _this$props6 = _this.props,
-          direction = _this$props6.direction,
-          minDate = _this$props6.minDate;
-      var scrollArea = _this.state.scrollArea;
-
+    _defineProperty(this, "estimateMonthSize", (index, cache) => {
+      const {
+        direction,
+        minDate
+      } = this.props;
+      const {
+        scrollArea
+      } = this.state;
       if (cache) {
-        _this.listSizeCache = cache;
+        this.listSizeCache = cache;
         if (cache[index]) return cache[index];
       }
-
       if (direction === 'horizontal') return scrollArea.monthWidth;
-      var monthStep = (0, _addMonths.default)(minDate, index);
-
-      var _getMonthDisplayRange = (0, _utils.getMonthDisplayRange)(monthStep, _this.dateOptions),
-          start = _getMonthDisplayRange.start,
-          end = _getMonthDisplayRange.end;
-
-      var isLongMonth = (0, _differenceInDays.default)(end, start, _this.dateOptions) + 1 > 7 * 5;
+      const monthStep = (0, _dateFns.addMonths)(minDate, index);
+      const {
+        start,
+        end
+      } = (0, _utils.getMonthDisplayRange)(monthStep, this.dateOptions);
+      const isLongMonth = (0, _dateFns.differenceInDays)(end, start, this.dateOptions) + 1 > 7 * 5;
       return isLongMonth ? scrollArea.longMonthHeight : scrollArea.monthHeight;
     });
-
-    _this.dateOptions = {
+    this.dateOptions = {
       locale: _props.locale
     };
-    if (_props.weekStartsOn !== undefined) _this.dateOptions.weekStartsOn = _props.weekStartsOn;
-    _this.styles = (0, _utils.generateStyles)([_styles.default, _props.classNames]);
-    _this.listSizeCache = {};
-    _this.isFirstRender = true;
-    _this.state = {
-      monthNames: _this.getMonthNames(),
+    if (_props.weekStartsOn !== undefined) this.dateOptions.weekStartsOn = _props.weekStartsOn;
+    this.styles = (0, _utils.generateStyles)([_styles.default, _props.classNames]);
+    this.listSizeCache = {};
+    this.isFirstRender = true;
+    this.state = {
+      monthNames: this.getMonthNames(),
       focusedDate: (0, _utils.calcFocusDate)(null, _props),
       drag: {
         status: false,
@@ -535,250 +370,206 @@ var Calendar = /*#__PURE__*/function (_PureComponent) {
         },
         disablePreview: false
       },
-      scrollArea: _this.calcScrollArea(_props)
+      scrollArea: this.calcScrollArea(_props)
     };
-    return _this;
   }
-
-  _createClass(Calendar, [{
-    key: "getMonthNames",
-    value: function getMonthNames() {
-      var _this2 = this;
-
-      return _toConsumableArray(Array(12).keys()).map(function (i) {
-        return _this2.props.locale.localize.month(i);
-      });
-    }
-  }, {
-    key: "calcScrollArea",
-    value: function calcScrollArea(props) {
-      var direction = props.direction,
-          months = props.months,
-          scroll = props.scroll;
-      if (!scroll.enabled) return {
-        enabled: false
-      };
-      var longMonthHeight = scroll.longMonthHeight || scroll.monthHeight;
-
-      if (direction === 'vertical') {
-        return {
-          enabled: true,
-          monthHeight: scroll.monthHeight || 200,
-          longMonthHeight: longMonthHeight || 260,
-          calendarWidth: 'auto',
-          calendarHeight: (scroll.calendarHeight || longMonthHeight || 240) * months
-        };
-      }
-
+  getMonthNames() {
+    return [...Array(12).keys()].map(i => this.props.locale.localize.month(i));
+  }
+  calcScrollArea(props) {
+    const {
+      direction,
+      months,
+      scroll
+    } = props;
+    if (!scroll.enabled) return {
+      enabled: false
+    };
+    const longMonthHeight = scroll.longMonthHeight || scroll.monthHeight;
+    if (direction === 'vertical') {
       return {
         enabled: true,
-        monthWidth: scroll.monthWidth || 332,
-        calendarWidth: (scroll.calendarWidth || scroll.monthWidth || 332) * months,
-        monthHeight: longMonthHeight || 300,
-        calendarHeight: longMonthHeight || 300
+        monthHeight: scroll.monthHeight || 200,
+        longMonthHeight: longMonthHeight || 260,
+        calendarWidth: 'auto',
+        calendarHeight: (scroll.calendarHeight || longMonthHeight || 240) * months
       };
     }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this3 = this;
-
-      if (this.props.scroll.enabled) {
-        // prevent react-list's initial render focus problem
-        setTimeout(function () {
-          return _this3.focusToDate(_this3.state.focusedDate);
-        });
-      }
+    return {
+      enabled: true,
+      monthWidth: scroll.monthWidth || 332,
+      calendarWidth: (scroll.calendarWidth || scroll.monthWidth || 332) * months,
+      monthHeight: longMonthHeight || 300,
+      calendarHeight: longMonthHeight || 300
+    };
+  }
+  componentDidMount() {
+    if (this.props.scroll.enabled) {
+      // prevent react-list's initial render focus problem
+      setTimeout(() => this.focusToDate(this.state.focusedDate));
     }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var propMapper = {
-        dateRange: 'ranges',
-        date: 'date'
+  }
+  componentDidUpdate(prevProps) {
+    const propMapper = {
+      dateRange: 'ranges',
+      date: 'date'
+    };
+    const targetProp = propMapper[this.props.displayMode];
+    if (this.props[targetProp] !== prevProps[targetProp]) {
+      this.updateShownDate(this.props);
+    }
+    if (prevProps.locale !== this.props.locale || prevProps.weekStartsOn !== this.props.weekStartsOn) {
+      this.dateOptions = {
+        locale: this.props.locale
       };
-      var targetProp = propMapper[this.props.displayMode];
-
-      if (this.props[targetProp] !== prevProps[targetProp]) {
-        this.updateShownDate(this.props);
-      }
-
-      if (prevProps.locale !== this.props.locale || prevProps.weekStartsOn !== this.props.weekStartsOn) {
-        this.dateOptions = {
-          locale: this.props.locale
-        };
-        if (this.props.weekStartsOn !== undefined) this.dateOptions.weekStartsOn = this.props.weekStartsOn;
-        this.setState({
-          monthNames: this.getMonthNames()
-        });
-      }
-
-      if (!(0, _shallowEqual.shallowEqualObjects)(prevProps.scroll, this.props.scroll)) {
-        this.setState({
-          scrollArea: this.calcScrollArea(this.props)
-        });
-      }
-    }
-  }, {
-    key: "renderWeekdays",
-    value: function renderWeekdays() {
-      var _this4 = this;
-
-      var now = new Date();
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: this.styles.weekDays
-      }, (0, _eachDayOfInterval.default)({
-        start: (0, _startOfWeek.default)(now, this.dateOptions),
-        end: (0, _endOfWeek.default)(now, this.dateOptions)
-      }).map(function (day, i) {
-        return /*#__PURE__*/_react.default.createElement("span", {
-          className: _this4.styles.weekDay,
-          key: i
-        }, (0, _format.default)(day, _this4.props.weekdayDisplayFormat, _this4.dateOptions));
-      }));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this5 = this;
-
-      var _this$props7 = this.props,
-          showDateDisplay = _this$props7.showDateDisplay,
-          onPreviewChange = _this$props7.onPreviewChange,
-          scroll = _this$props7.scroll,
-          direction = _this$props7.direction,
-          disabledDates = _this$props7.disabledDates,
-          disabledDay = _this$props7.disabledDay,
-          maxDate = _this$props7.maxDate,
-          minDate = _this$props7.minDate,
-          rangeColors = _this$props7.rangeColors,
-          color = _this$props7.color,
-          navigatorRenderer = _this$props7.navigatorRenderer,
-          className = _this$props7.className,
-          preview = _this$props7.preview,
-          monthStyle = _this$props7.monthStyle;
-      var _this$state = this.state,
-          scrollArea = _this$state.scrollArea,
-          focusedDate = _this$state.focusedDate;
-      var isVertical = direction === 'vertical';
-      var monthAndYearRenderer = navigatorRenderer || this.renderMonthAndYear;
-      var ranges = this.props.ranges.map(function (range, i) {
-        return _objectSpread(_objectSpread({}, range), {}, {
-          color: range.color || rangeColors[i] || color
-        });
+      if (this.props.weekStartsOn !== undefined) this.dateOptions.weekStartsOn = this.props.weekStartsOn;
+      this.setState({
+        monthNames: this.getMonthNames()
       });
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: (0, _classnames3.default)(this.styles.calendarWrapper, className),
-        onMouseUp: function onMouseUp() {
-          return _this5.setState({
-            drag: {
-              status: false,
-              range: {}
-            }
-          });
-        },
-        onMouseLeave: function onMouseLeave() {
-          _this5.setState({
-            drag: {
-              status: false,
-              range: {}
-            }
-          });
+    }
+    if (!(0, _shallowEqual.shallowEqualObjects)(prevProps.scroll, this.props.scroll)) {
+      this.setState({
+        scrollArea: this.calcScrollArea(this.props)
+      });
+    }
+  }
+  renderWeekdays() {
+    const now = new Date();
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: this.styles.weekDays
+    }, (0, _dateFns.eachDayOfInterval)({
+      start: (0, _dateFns.startOfWeek)(now, this.dateOptions),
+      end: (0, _dateFns.endOfWeek)(now, this.dateOptions)
+    }).map((day, i) => /*#__PURE__*/_react.default.createElement("span", {
+      className: this.styles.weekDay,
+      key: i
+    }, (0, _dateFns.format)(day, this.props.weekdayDisplayFormat, this.dateOptions))));
+  }
+  render() {
+    const {
+      showDateDisplay,
+      onPreviewChange,
+      scroll,
+      direction,
+      disabledDates,
+      disabledDay,
+      maxDate,
+      minDate,
+      rangeColors,
+      color,
+      navigatorRenderer,
+      className,
+      preview,
+      monthStyle
+    } = this.props;
+    const {
+      scrollArea,
+      focusedDate
+    } = this.state;
+    const isVertical = direction === 'vertical';
+    const monthAndYearRenderer = navigatorRenderer || this.renderMonthAndYear;
+    const ranges = this.props.ranges.map((range, i) => ({
+      ...range,
+      color: range.color || rangeColors[i] || color
+    }));
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: (0, _classnames.default)(this.styles.calendarWrapper, className),
+      onMouseUp: () => this.setState({
+        drag: {
+          status: false,
+          range: {}
         }
-      }, showDateDisplay && this.renderDateDisplay(), monthAndYearRenderer(focusedDate, this.changeShownDate, this.props), scroll.enabled ? /*#__PURE__*/_react.default.createElement("div", {
-        className: this.styles.arrowsWrapper
-      }, /*#__PURE__*/_react.default.createElement("div", null, isVertical && this.renderWeekdays(this.dateOptions), /*#__PURE__*/_react.default.createElement("div", {
-        className: (0, _classnames3.default)(this.styles.infiniteMonths, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal),
-        onMouseLeave: function onMouseLeave() {
-          return onPreviewChange && onPreviewChange();
-        },
-        style: {
-          width: scrollArea.calendarWidth + 11,
-          height: scrollArea.calendarHeight + 11
-        },
-        onScroll: this.handleScroll
-      }, /*#__PURE__*/_react.default.createElement(_reactList.default, {
-        length: (0, _differenceInCalendarMonths.default)((0, _endOfMonth.default)(maxDate), (0, _addDays.default)((0, _startOfMonth.default)(minDate), -1), this.dateOptions),
-        treshold: 500,
-        type: "variable",
-        ref: function ref(target) {
-          return _this5.list = target;
-        },
-        itemSizeEstimator: this.estimateMonthSize,
-        axis: isVertical ? 'y' : 'x',
-        itemRenderer: function itemRenderer(index, key) {
-          var monthStep = (0, _addMonths.default)(minDate, index);
-          return /*#__PURE__*/_react.default.createElement(_Month.default, _extends({}, _this5.props, {
-            onPreviewChange: onPreviewChange || _this5.updatePreview,
-            preview: preview || _this5.state.preview,
-            ranges: ranges,
-            key: key,
-            drag: _this5.state.drag,
-            dateOptions: _this5.dateOptions,
-            disabledDates: disabledDates,
-            disabledDay: disabledDay,
-            month: monthStep,
-            onDragSelectionStart: _this5.onDragSelectionStart,
-            onDragSelectionEnd: _this5.onDragSelectionEnd,
-            onDragSelectionMove: _this5.onDragSelectionMove,
-            onMouseLeave: function onMouseLeave() {
-              return onPreviewChange && onPreviewChange();
-            },
-            styles: _this5.styles,
-            style: isVertical ? _objectSpread({
-              height: _this5.estimateMonthSize(index)
-            }, monthStyle) : _objectSpread({
-              height: scrollArea.monthHeight,
-              width: _this5.estimateMonthSize(index)
-            }, monthStyle),
-            showMonthName: true,
-            showWeekDays: !isVertical
-          }));
-        }
-      }))), this.renderMonthAndYearVertical(this.changeShownDate, this.props)) : /*#__PURE__*/_react.default.createElement("div", {
-        className: (0, _classnames3.default)(this.styles.months, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal)
-      }, new Array(this.props.months).fill(null).map(function (_, i) {
-        var monthStep = (0, _addMonths.default)(_this5.state.focusedDate, i);
-
-        if (_this5.props.calendarFocus === 'backwards') {
-          monthStep = (0, _subMonths.default)(_this5.state.focusedDate, _this5.props.months - 1 - i);
-        }
-
-        return /*#__PURE__*/_react.default.createElement(_Month.default, _extends({}, _this5.props, {
-          onPreviewChange: onPreviewChange || _this5.updatePreview,
-          preview: preview || _this5.state.preview,
+      }),
+      onMouseLeave: () => {
+        this.setState({
+          drag: {
+            status: false,
+            range: {}
+          }
+        });
+      }
+    }, showDateDisplay && this.renderDateDisplay(), monthAndYearRenderer(focusedDate, this.changeShownDate, this.props), scroll.enabled ? /*#__PURE__*/_react.default.createElement("div", {
+      className: this.styles.arrowsWrapper
+    }, /*#__PURE__*/_react.default.createElement("div", null, isVertical && this.renderWeekdays(this.dateOptions), /*#__PURE__*/_react.default.createElement("div", {
+      className: (0, _classnames.default)(this.styles.infiniteMonths, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal),
+      onMouseLeave: () => onPreviewChange && onPreviewChange(),
+      style: {
+        width: scrollArea.calendarWidth + 11,
+        height: scrollArea.calendarHeight + 11
+      },
+      onScroll: this.handleScroll
+    }, /*#__PURE__*/_react.default.createElement(_reactList.default, {
+      length: (0, _dateFns.differenceInCalendarMonths)((0, _dateFns.endOfMonth)(maxDate), (0, _dateFns.addDays)((0, _dateFns.startOfMonth)(minDate), -1), this.dateOptions),
+      treshold: 500,
+      type: "variable",
+      ref: target => this.list = target,
+      itemSizeEstimator: this.estimateMonthSize,
+      axis: isVertical ? 'y' : 'x',
+      itemRenderer: (index, key) => {
+        const monthStep = (0, _dateFns.addMonths)(minDate, index);
+        return /*#__PURE__*/_react.default.createElement(_Month.default, _extends({}, this.props, {
+          onPreviewChange: onPreviewChange || this.updatePreview,
+          preview: preview || this.state.preview,
           ranges: ranges,
-          key: i,
-          drag: _this5.state.drag,
-          dateOptions: _this5.dateOptions,
+          key: key,
+          drag: this.state.drag,
+          dateOptions: this.dateOptions,
           disabledDates: disabledDates,
           disabledDay: disabledDay,
           month: monthStep,
-          onDragSelectionStart: _this5.onDragSelectionStart,
-          onDragSelectionEnd: _this5.onDragSelectionEnd,
-          onDragSelectionMove: _this5.onDragSelectionMove,
-          onMouseLeave: function onMouseLeave() {
-            return onPreviewChange && onPreviewChange();
+          onDragSelectionStart: this.onDragSelectionStart,
+          onDragSelectionEnd: this.onDragSelectionEnd,
+          onDragSelectionMove: this.onDragSelectionMove,
+          onMouseLeave: () => onPreviewChange && onPreviewChange(),
+          styles: this.styles,
+          style: isVertical ? {
+            height: this.estimateMonthSize(index),
+            ...monthStyle
+          } : {
+            height: scrollArea.monthHeight,
+            width: this.estimateMonthSize(index),
+            ...monthStyle
           },
-          styles: _this5.styles,
-          showWeekDays: !isVertical || i === 0,
-          showMonthName: !isVertical || i > 0,
-          style: monthStyle
+          showMonthName: true,
+          showWeekDays: !isVertical
         }));
-      })));
-    }
-  }]);
-
-  return Calendar;
-}(_react.PureComponent);
-
+      }
+    }))), this.renderMonthAndYearVertical(this.changeShownDate, this.props)) : /*#__PURE__*/_react.default.createElement("div", {
+      className: (0, _classnames.default)(this.styles.months, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal)
+    }, new Array(this.props.months).fill(null).map((_, i) => {
+      let monthStep = (0, _dateFns.addMonths)(this.state.focusedDate, i);
+      if (this.props.calendarFocus === 'backwards') {
+        monthStep = (0, _dateFns.subMonths)(this.state.focusedDate, this.props.months - 1 - i);
+      }
+      return /*#__PURE__*/_react.default.createElement(_Month.default, _extends({}, this.props, {
+        onPreviewChange: onPreviewChange || this.updatePreview,
+        preview: preview || this.state.preview,
+        ranges: ranges,
+        key: i,
+        drag: this.state.drag,
+        dateOptions: this.dateOptions,
+        disabledDates: disabledDates,
+        disabledDay: disabledDay,
+        month: monthStep,
+        onDragSelectionStart: this.onDragSelectionStart,
+        onDragSelectionEnd: this.onDragSelectionEnd,
+        onDragSelectionMove: this.onDragSelectionMove,
+        onMouseLeave: () => onPreviewChange && onPreviewChange(),
+        styles: this.styles,
+        showWeekDays: !isVertical || i === 0,
+        showMonthName: !isVertical || i > 0,
+        style: monthStyle
+      }));
+    })));
+  }
+}
 Calendar.defaultProps = {
   showMonthArrow: true,
   showMonthAndYearPickers: true,
   disabledDates: [],
-  disabledDay: function disabledDay() {},
+  disabledDay: () => {},
   classNames: {},
-  locale: _enUS.default,
+  locale: _enUS.enUS,
   ranges: [],
   focusedRange: [0, 0],
   dateDisplayFormat: 'dd/MM/yyyy',
@@ -794,8 +585,8 @@ Calendar.defaultProps = {
     enabled: false
   },
   direction: 'vertical',
-  maxDate: (0, _addYears.default)(new Date(), 20),
-  minDate: (0, _addYears.default)(new Date(), -100),
+  maxDate: (0, _dateFns.addYears)(new Date(), 20),
+  minDate: (0, _dateFns.addYears)(new Date(), -100),
   rangeColors: ['#1dbadf', '#3ecf8e', '#fed14c'],
   startDatePlaceholder: 'Early',
   endDatePlaceholder: 'Continuous',
@@ -864,5 +655,4 @@ Calendar.propTypes = {
   ariaLabels: _accessibility.ariaLabelsShape,
   monthStyle: _propTypes.default.object
 };
-var _default = Calendar;
-exports.default = _default;
+var _default = exports.default = Calendar;

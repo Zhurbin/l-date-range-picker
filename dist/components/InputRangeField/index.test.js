@@ -1,31 +1,23 @@
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
-
 var _enzyme = require("enzyme");
-
 var _InputRangeField = _interopRequireDefault(require("../InputRangeField"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = {
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const styles = {
   inputRange: 'range',
   inputRangeInput: 'input',
   inputRangeLabel: 'label'
 };
-
-var toChangeEvent = function toChangeEvent(value) {
-  return {
-    target: {
-      value: value
-    }
-  };
-};
-
-describe('InputRangeField tests', function () {
-  test('Should parse input value to number', function () {
-    var onChange = jest.fn();
-    var wrapper = (0, _enzyme.mount)( /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
+const toChangeEvent = value => ({
+  target: {
+    value
+  }
+});
+describe('InputRangeField tests', () => {
+  test('Should parse input value to number', () => {
+    const onChange = jest.fn();
+    const wrapper = (0, _enzyme.mount)( /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
       label: "Input label",
       styles: styles,
       onChange: onChange,
@@ -47,8 +39,8 @@ describe('InputRangeField tests', function () {
     expect(onChange).toHaveBeenCalledTimes(6);
     expect(wrapper).toMatchSnapshot();
   });
-  test('Should rerender when props change', function () {
-    var wrapper = (0, _enzyme.mount)( /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
+  test('Should rerender when props change', () => {
+    const wrapper = (0, _enzyme.mount)( /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
       value: 12,
       placeholder: "Placeholder",
       label: "Input label",
@@ -57,36 +49,33 @@ describe('InputRangeField tests', function () {
       onFocus: jest.fn(),
       onBlur: jest.fn()
     }));
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual(12);
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('Placeholder');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Input label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual(12);
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('Placeholder');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Input label');
     wrapper.setProps({
       value: '32'
     });
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual('32');
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('Placeholder');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Input label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual('32');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('Placeholder');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Input label');
     wrapper.setProps({
       placeholder: '-'
     });
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual('32');
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('-');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Input label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual('32');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('-');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Input label');
     wrapper.setProps({
       label: 'Label'
     });
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual('32');
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('-');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual('32');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('-');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Label');
   });
-  test('Should render the label as a Component', function () {
-    var Label = function Label() {
-      return /*#__PURE__*/_react.default.createElement("span", {
-        className: "input-range-field-label"
-      }, "Input label");
-    };
-
-    var wrapper = (0, _enzyme.mount)( /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
+  test('Should render the label as a Component', () => {
+    const Label = () => /*#__PURE__*/_react.default.createElement("span", {
+      className: "input-range-field-label"
+    }, "Input label");
+    const wrapper = (0, _enzyme.mount)( /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
       value: 12,
       placeholder: "Placeholder",
       label: /*#__PURE__*/_react.default.createElement(Label, null),
@@ -95,28 +84,28 @@ describe('InputRangeField tests', function () {
       onFocus: jest.fn(),
       onBlur: jest.fn()
     }));
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual(12);
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('Placeholder');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Input label');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Input label');
-    expect(wrapper.find(".input-range-field-label").text()).toEqual('Input label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual(12);
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('Placeholder');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Input label');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Input label');
+    expect(wrapper.find(`.input-range-field-label`).text()).toEqual('Input label');
     wrapper.setProps({
       value: '32'
     });
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual('32');
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('Placeholder');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Input label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual('32');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('Placeholder');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Input label');
     wrapper.setProps({
       placeholder: '-'
     });
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual('32');
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('-');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Input label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual('32');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('-');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Input label');
     wrapper.setProps({
       label: 'Label'
     });
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('value')).toEqual('32');
-    expect(wrapper.find(".".concat(styles.inputRangeInput)).prop('placeholder')).toEqual('-');
-    expect(wrapper.find(".".concat(styles.inputRangeLabel)).text()).toEqual('Label');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('value')).toEqual('32');
+    expect(wrapper.find(`.${styles.inputRangeInput}`).prop('placeholder')).toEqual('-');
+    expect(wrapper.find(`.${styles.inputRangeLabel}`).text()).toEqual('Label');
   });
 });

@@ -1,204 +1,136 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _styles = _interopRequireDefault(require("../../styles"));
-
 var _defaultRanges = require("../../defaultRanges");
-
 var _DayCell = require("../DayCell");
-
 var _InputRangeField = _interopRequireDefault(require("../InputRangeField"));
-
 var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var DefinedRange = /*#__PURE__*/function (_Component) {
-  _inherits(DefinedRange, _Component);
-
-  var _super = _createSuper(DefinedRange);
-
-  function DefinedRange(props) {
-    var _this;
-
-    _classCallCheck(this, DefinedRange);
-
-    _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "handleRangeChange", function (range) {
-      var _this$props = _this.props,
-          onChange = _this$props.onChange,
-          ranges = _this$props.ranges,
-          focusedRange = _this$props.focusedRange;
-      var selectedRange = ranges[focusedRange[0]];
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+class DefinedRange extends _react.Component {
+  constructor(props) {
+    super(props);
+    _defineProperty(this, "handleRangeChange", range => {
+      const {
+        onChange,
+        ranges,
+        focusedRange
+      } = this.props;
+      const selectedRange = ranges[focusedRange[0]];
       if (!onChange || !selectedRange) return;
-      onChange(_defineProperty({}, selectedRange.key || "range".concat(focusedRange[0] + 1), _objectSpread(_objectSpread({}, selectedRange), range)));
+      onChange({
+        [selectedRange.key || `range${focusedRange[0] + 1}`]: {
+          ...selectedRange,
+          ...range
+        }
+      });
     });
-
-    _this.state = {
+    this.state = {
       rangeOffset: 0,
       focusedInput: -1
     };
-    return _this;
   }
-
-  _createClass(DefinedRange, [{
-    key: "getRangeOptionValue",
-    value: function getRangeOptionValue(option) {
-      var _this$props2 = this.props,
-          _this$props2$ranges = _this$props2.ranges,
-          ranges = _this$props2$ranges === void 0 ? [] : _this$props2$ranges,
-          _this$props2$focusedR = _this$props2.focusedRange,
-          focusedRange = _this$props2$focusedR === void 0 ? [] : _this$props2$focusedR;
-
-      if (typeof option.getCurrentValue !== 'function') {
-        return '';
+  getRangeOptionValue(option) {
+    const {
+      ranges = [],
+      focusedRange = []
+    } = this.props;
+    if (typeof option.getCurrentValue !== 'function') {
+      return '';
+    }
+    const selectedRange = ranges[focusedRange[0]] || {};
+    return option.getCurrentValue(selectedRange) || '';
+  }
+  getSelectedRange(ranges, staticRange) {
+    const focusedRangeIndex = ranges.findIndex(range => {
+      const isEmptyDates = !range.startDate && !range.endDate;
+      if (!isEmptyDates && (!range.startDate || !range.endDate || range.disabled)) return false;
+      if (!staticRange.isSelected) return false;
+      return staticRange.isSelected(range);
+    });
+    const selectedRange = ranges[focusedRangeIndex];
+    return {
+      selectedRange,
+      focusedRangeIndex
+    };
+  }
+  render() {
+    const {
+      headerContent,
+      footerContent,
+      onPreviewChange,
+      inputRanges,
+      staticRanges,
+      ranges,
+      renderStaticRangeLabel,
+      // rangeColors,
+      className
+    } = this.props;
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: (0, _classnames.default)(_styles.default.definedRangesWrapper, className)
+    }, headerContent, /*#__PURE__*/_react.default.createElement("div", {
+      className: _styles.default.staticRanges
+    }, staticRanges.map((staticRange, i) => {
+      // const { selectedRange, focusedRangeIndex } = this.getSelectedRange(ranges, staticRange);
+      const {
+        selectedRange
+      } = this.getSelectedRange(ranges, staticRange);
+      let labelContent;
+      if (staticRange.hasCustomRendering) {
+        labelContent = renderStaticRangeLabel(staticRange);
+      } else {
+        labelContent = staticRange.label;
       }
-
-      var selectedRange = ranges[focusedRange[0]] || {};
-      return option.getCurrentValue(selectedRange) || '';
-    }
-  }, {
-    key: "getSelectedRange",
-    value: function getSelectedRange(ranges, staticRange) {
-      var focusedRangeIndex = ranges.findIndex(function (range) {
-        var isEmptyDates = !range.startDate && !range.endDate;
-        if (!isEmptyDates && (!range.startDate || !range.endDate || range.disabled)) return false;
-        if (!staticRange.isSelected) return false;
-        return staticRange.isSelected(range);
-      });
-      var selectedRange = ranges[focusedRangeIndex];
-      return {
-        selectedRange: selectedRange,
-        focusedRangeIndex: focusedRangeIndex
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var _this$props3 = this.props,
-          headerContent = _this$props3.headerContent,
-          footerContent = _this$props3.footerContent,
-          onPreviewChange = _this$props3.onPreviewChange,
-          inputRanges = _this$props3.inputRanges,
-          staticRanges = _this$props3.staticRanges,
-          ranges = _this$props3.ranges,
-          renderStaticRangeLabel = _this$props3.renderStaticRangeLabel,
-          className = _this$props3.className;
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: (0, _classnames.default)(_styles.default.definedRangesWrapper, className)
-      }, headerContent, /*#__PURE__*/_react.default.createElement("div", {
-        className: _styles.default.staticRanges
-      }, staticRanges.map(function (staticRange, i) {
-        // const { selectedRange, focusedRangeIndex } = this.getSelectedRange(ranges, staticRange);
-        var _this2$getSelectedRan = _this2.getSelectedRange(ranges, staticRange),
-            selectedRange = _this2$getSelectedRan.selectedRange;
-
-        var labelContent;
-
-        if (staticRange.hasCustomRendering) {
-          labelContent = renderStaticRangeLabel(staticRange);
-        } else {
-          labelContent = staticRange.label;
+      return /*#__PURE__*/_react.default.createElement("button", {
+        type: "button",
+        className: (0, _classnames.default)(_styles.default.staticRange, {
+          [_styles.default.staticRangeSelected]: Boolean(selectedRange)
+        })
+        // style={{
+        //   color: selectedRange
+        //     ? selectedRange.color || rangeColors[focusedRangeIndex]
+        //     : null,
+        // }}
+        ,
+        key: i,
+        onClick: () => this.handleRangeChange(staticRange.range(this.props)),
+        onFocus: () => onPreviewChange && onPreviewChange(staticRange.range(this.props), 'fromDefinedRangeHover'),
+        onMouseOver: () => onPreviewChange && onPreviewChange(staticRange.range(this.props), 'fromDefinedRangeHover'),
+        onMouseLeave: () => {
+          onPreviewChange && onPreviewChange();
         }
-
-        return /*#__PURE__*/_react.default.createElement("button", {
-          type: "button",
-          className: (0, _classnames.default)(_styles.default.staticRange, _defineProperty({}, _styles.default.staticRangeSelected, Boolean(selectedRange))) // style={{
-          //   color: selectedRange
-          //     ? selectedRange.color || rangeColors[focusedRangeIndex]
-          //     : null,
-          // }}
-          ,
-          key: i,
-          onClick: function onClick() {
-            return _this2.handleRangeChange(staticRange.range(_this2.props));
-          },
-          onFocus: function onFocus() {
-            return onPreviewChange && onPreviewChange(staticRange.range(_this2.props), 'fromDefinedRangeHover');
-          },
-          onMouseOver: function onMouseOver() {
-            return onPreviewChange && onPreviewChange(staticRange.range(_this2.props), 'fromDefinedRangeHover');
-          },
-          onMouseLeave: function onMouseLeave() {
-            onPreviewChange && onPreviewChange();
-          }
-        }, /*#__PURE__*/_react.default.createElement("span", {
-          tabIndex: -1,
-          className: _styles.default.staticRangeLabel
-        }, labelContent));
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        className: _styles.default.inputRanges
-      }, inputRanges.map(function (rangeOption, i) {
-        return /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
-          key: i,
-          styles: _styles.default,
-          label: rangeOption.label,
-          onFocus: function onFocus() {
-            return _this2.setState({
-              focusedInput: i,
-              rangeOffset: 0
-            });
-          },
-          onBlur: function onBlur() {
-            return _this2.setState({
-              rangeOffset: 0
-            });
-          },
-          onChange: function onChange(value) {
-            return _this2.handleRangeChange(rangeOption.range(value, _this2.props));
-          },
-          value: _this2.getRangeOptionValue(rangeOption)
-        });
-      })), footerContent);
-    }
-  }]);
-
-  return DefinedRange;
-}(_react.Component);
-
+      }, /*#__PURE__*/_react.default.createElement("span", {
+        tabIndex: -1,
+        className: _styles.default.staticRangeLabel
+      }, labelContent));
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      className: _styles.default.inputRanges
+    }, inputRanges.map((rangeOption, i) => /*#__PURE__*/_react.default.createElement(_InputRangeField.default, {
+      key: i,
+      styles: _styles.default,
+      label: rangeOption.label,
+      onFocus: () => this.setState({
+        focusedInput: i,
+        rangeOffset: 0
+      }),
+      onBlur: () => this.setState({
+        rangeOffset: 0
+      }),
+      onChange: value => this.handleRangeChange(rangeOption.range(value, this.props)),
+      value: this.getRangeOptionValue(rangeOption)
+    }))), footerContent);
+  }
+}
 DefinedRange.propTypes = {
   inputRanges: _propTypes.default.array,
   staticRanges: _propTypes.default.array,
@@ -219,5 +151,4 @@ DefinedRange.defaultProps = {
   rangeColors: ['#1dbadf', '#3ecf8e', '#fed14c'],
   focusedRange: [0, 0]
 };
-var _default = DefinedRange;
-exports.default = _default;
+var _default = exports.default = DefinedRange;

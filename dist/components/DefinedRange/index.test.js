@@ -1,40 +1,35 @@
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
-
 var _enzyme = require("enzyme");
-
 var _DefinedRange = _interopRequireDefault(require("../DefinedRange"));
-
-var _isSameDay = _interopRequireDefault(require("date-fns/isSameDay"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-describe('DefinedRange tests', function () {
-  test('Should call "renderStaticRangeLabel" callback correct amount of times according to the "hasCustomRendering" option', function () {
-    var renderStaticRangeLabel = jest.fn();
+var _dateFns = require("date-fns");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+describe('DefinedRange tests', () => {
+  test('Should call "renderStaticRangeLabel" callback correct amount of times according to the "hasCustomRendering" option', () => {
+    const renderStaticRangeLabel = jest.fn();
     (0, _enzyme.mount)( /*#__PURE__*/_react.default.createElement(_DefinedRange.default, {
       staticRanges: [{
         label: 'Dynamic Label',
         range: {},
-        isSelected: function isSelected(range) {
-          var definedRange = this.range();
-          return (0, _isSameDay.default)(range.startDate, definedRange.startDate) && (0, _isSameDay.default)(range.endDate, definedRange.endDate);
+        isSelected(range) {
+          const definedRange = this.range();
+          return (0, _dateFns.isSameDay)(range.startDate, definedRange.startDate) && (0, _dateFns.isSameDay)(range.endDate, definedRange.endDate);
         },
         hasCustomRendering: true
       }, {
         label: 'Static Label',
         range: {},
-        isSelected: function isSelected(range) {
-          var definedRange = this.range();
-          return (0, _isSameDay.default)(range.startDate, definedRange.startDate) && (0, _isSameDay.default)(range.endDate, definedRange.endDate);
+        isSelected(range) {
+          const definedRange = this.range();
+          return (0, _dateFns.isSameDay)(range.startDate, definedRange.startDate) && (0, _dateFns.isSameDay)(range.endDate, definedRange.endDate);
         }
       }, {
         label: 'Hede',
         range: {},
-        isSelected: function isSelected(range) {
-          var definedRange = this.range();
-          return (0, _isSameDay.default)(range.startDate, definedRange.startDate) && (0, _isSameDay.default)(range.endDate, definedRange.endDate);
+        isSelected(range) {
+          const definedRange = this.range();
+          return (0, _dateFns.isSameDay)(range.startDate, definedRange.startDate) && (0, _dateFns.isSameDay)(range.endDate, definedRange.endDate);
         },
         hasCustomRendering: true
       }],
@@ -42,28 +37,18 @@ describe('DefinedRange tests', function () {
     }));
     expect(renderStaticRangeLabel).toHaveBeenCalledTimes(2);
   });
-  test('Should render dynamic static label contents correctly', function () {
-    var renderItalicLabelContent = function renderItalicLabelContent() {
-      return /*#__PURE__*/_react.default.createElement("i", {
-        className: 'italic-label-content'
-      }, 'Italic Content');
-    };
-
-    var renderBoldLabelContent = function renderBoldLabelContent() {
-      return /*#__PURE__*/_react.default.createElement("b", {
-        className: 'bold-label-content'
-      }, 'Bold Content');
-    };
-
-    var renderSomethingElse = function renderSomethingElse() {
-      return /*#__PURE__*/_react.default.createElement("img", {
-        className: 'random-image'
-      });
-    };
-
-    var renderStaticRangeLabel = function renderStaticRangeLabel(staticRange) {
-      var result;
-
+  test('Should render dynamic static label contents correctly', () => {
+    const renderItalicLabelContent = () => /*#__PURE__*/_react.default.createElement("i", {
+      className: 'italic-label-content'
+    }, 'Italic Content');
+    const renderBoldLabelContent = () => /*#__PURE__*/_react.default.createElement("b", {
+      className: 'bold-label-content'
+    }, 'Bold Content');
+    const renderSomethingElse = () => /*#__PURE__*/_react.default.createElement("img", {
+      className: 'random-image'
+    });
+    const renderStaticRangeLabel = function (staticRange) {
+      let result;
       if (staticRange.id === 'italic') {
         result = renderItalicLabelContent();
       } else if (staticRange.id === 'bold') {
@@ -71,40 +56,38 @@ describe('DefinedRange tests', function () {
       } else {
         result = renderSomethingElse();
       }
-
       return result;
     };
-
-    var wrapper = (0, _enzyme.shallow)( /*#__PURE__*/_react.default.createElement(_DefinedRange.default, {
+    const wrapper = (0, _enzyme.shallow)( /*#__PURE__*/_react.default.createElement(_DefinedRange.default, {
       staticRanges: [{
         id: 'italic',
         range: {},
-        isSelected: function isSelected(range) {
-          var definedRange = this.range();
-          return (0, _isSameDay.default)(range.startDate, definedRange.startDate) && (0, _isSameDay.default)(range.endDate, definedRange.endDate);
+        isSelected(range) {
+          const definedRange = this.range();
+          return (0, _dateFns.isSameDay)(range.startDate, definedRange.startDate) && (0, _dateFns.isSameDay)(range.endDate, definedRange.endDate);
         },
         hasCustomRendering: true
       }, {
         label: 'Static Label',
         range: {},
-        isSelected: function isSelected(range) {
-          var definedRange = this.range();
-          return (0, _isSameDay.default)(range.startDate, definedRange.startDate) && (0, _isSameDay.default)(range.endDate, definedRange.endDate);
+        isSelected(range) {
+          const definedRange = this.range();
+          return (0, _dateFns.isSameDay)(range.startDate, definedRange.startDate) && (0, _dateFns.isSameDay)(range.endDate, definedRange.endDate);
         }
       }, {
         id: 'whatever',
         range: {},
-        isSelected: function isSelected(range) {
-          var definedRange = this.range();
-          return (0, _isSameDay.default)(range.startDate, definedRange.startDate) && (0, _isSameDay.default)(range.endDate, definedRange.endDate);
+        isSelected(range) {
+          const definedRange = this.range();
+          return (0, _dateFns.isSameDay)(range.startDate, definedRange.startDate) && (0, _dateFns.isSameDay)(range.endDate, definedRange.endDate);
         },
         hasCustomRendering: true
       }, {
         id: 'bold',
         range: {},
-        isSelected: function isSelected(range) {
-          var definedRange = this.range();
-          return (0, _isSameDay.default)(range.startDate, definedRange.startDate) && (0, _isSameDay.default)(range.endDate, definedRange.endDate);
+        isSelected(range) {
+          const definedRange = this.range();
+          return (0, _dateFns.isSameDay)(range.startDate, definedRange.startDate) && (0, _dateFns.isSameDay)(range.endDate, definedRange.endDate);
         },
         hasCustomRendering: true
       }],
