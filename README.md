@@ -1,10 +1,10 @@
-# date-range-picker
+# l-date-range-picker
 
 Based on react-date-range component: [react-date-range repo](https://github.com/hypeserver/react-date-range).
 
 A date library agnostic React component for choosing dates and date ranges. Uses [date-fns](http://date-fns.org/) for date operations.
 
-### Why should you use `date-range-picker`?
+### Why should you use `l-date-range-picker`?
 
 - Stateless date operations
 - Highly configurable
@@ -24,7 +24,7 @@ A date library agnostic React component for choosing dates and date ranges. Uses
 Insert to you package.json and run install command:
 
 ```
-"date-range-picker": "Zhurbin/date-range-picker#main",
+"l-date-range-picker": "Zhurbin/l-date-range-picker#main",
 ```
 
 This plugin expects `react` and `date-fns` as peerDependencies, It means that you need to install them in your project folder.
@@ -50,7 +50,7 @@ git push
 And updae library into your project
 
 ```
-yarn upgrade date-range-picker
+yarn upgrade l-date-range-picker
 ```
 
 ## Usage
@@ -58,13 +58,13 @@ yarn upgrade date-range-picker
 You need to import skeleton and theme styles first.
 
 ```javascript
-import 'date-range-picker/dist/styles.css'; // main style file
-import 'date-range-picker/dist/theme/default.css'; // theme css file
+import 'l-date-range-picker/dist/styles.css'; // main style file
+import 'l-date-range-picker/dist/theme/default.css'; // theme css file
 ```
 
 ### `DatePicker`
 ```javascript
-import { Calendar } from 'date-range-picker';
+import { Calendar } from 'l-date-range-picker';
 
 class MyComponent extends Component {
   handleSelect(date){
@@ -84,7 +84,7 @@ class MyComponent extends Component {
 
 ### `DateRangePicker / DateRange`
 ```javascript
-import { DateRangePicker } from 'date-range-picker';
+import { DateRangePicker } from 'l-date-range-picker';
 
 class MyComponent extends Component {
   handleSelect(ranges){
@@ -117,7 +117,7 @@ class MyComponent extends Component {
 
 Property                             | type      | Default Value    | Description
 -------------------------------------|-----------|------------------|-----------------------------------------------------------------
-locale                               | Object    | enUS from locale | you can view full list from [here](https://github.com/Zhurbin/date-range-picker/tree/next/src/locale/index.js). Locales directly exported from [`date-fns/locales`](https://date-fns.org/docs/I18n#supported-languages).
+locale                               | Object    | enUS from locale | you can view full list from [here](https://github.com/Zhurbin/l-date-range-picker/tree/next/src/locale/index.js). Locales directly exported from [`date-fns/locales`](https://date-fns.org/docs/I18n#supported-languages).
 className                            | String    |                  | wrapper classname
 months                               | Number    | 1                | rendered month count
 showSelectionPreview                 | Boolean   | true             | show preview on focused/hovered dates
@@ -160,8 +160,8 @@ startDatePlaceholder                 | String    | `Early`          | Start Date
 endDatePlaceholder                   | String    | `Continuous`     | End Date Placeholder
 fixedHeight                          | Boolean   | false            | Since some months require less than 6 lines to show, by setting this prop, you can force 6 lines for all months.
 renderStaticRangeLabel(`DefinedRange`)| Function |                  | Callback function to be triggered for the static range configurations that have `hasCustomRendering: true` on them. Instead of rendering `staticRange.label`, return value of this callback will be rendered.
-staticRanges(`DefinedRange`, `DateRangePicker`)  | Array            | [default preDefined ranges](https://github.com/Zhurbin/date-range-picker/blob/master/src/defaultRanges.js)             | -
-inputRanges(`DefinedRange`, `DateRangePicker`)   | Array            | [default input ranges](https://github.com/Zhurbin/date-range-picker/blob/master/src/defaultRanges.js)             | -
+staticRanges(`DefinedRange`, `DateRangePicker`)  | Array            | [default preDefined ranges](https://github.com/Zhurbin/l-date-range-picker/blob/master/src/defaultRanges.js)             | -
+inputRanges(`DefinedRange`, `DateRangePicker`)   | Array            | [default input ranges](https://github.com/Zhurbin/l-date-range-picker/blob/master/src/defaultRanges.js)             | -
 ariaLabels                           | Object    | {}               | inserts aria-label to inner elements
 dayContentRenderer                   | Function  | null             | Function to customize the rendering of Calendar Day. given a date is supposed to return what to render.
 
