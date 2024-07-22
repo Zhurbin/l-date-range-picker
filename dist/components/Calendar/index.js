@@ -122,6 +122,7 @@ class Calendar extends _react.PureComponent {
         isFirstRender
       } = this;
       const visibleMonths = this.list.getVisibleRange();
+
       // prevent scroll jump with wrong visible value
       if (visibleMonths[0] === undefined) return;
       const visibleMonth = (0, _dateFns.addMonths)(minDate, visibleMonths[0] || 0);
@@ -495,12 +496,13 @@ class Calendar extends _react.PureComponent {
       onMouseLeave: () => onPreviewChange && onPreviewChange(),
       style: {
         width: scrollArea.calendarWidth + 11,
-        height: scrollArea.calendarHeight + 11
+        height: scrollArea.calendarHeight + 11,
+        overflow: 'hidden'
       },
       onScroll: this.handleScroll
     }, /*#__PURE__*/_react.default.createElement(_reactList.default, {
       length: (0, _dateFns.differenceInCalendarMonths)((0, _dateFns.endOfMonth)(maxDate), (0, _dateFns.addDays)((0, _dateFns.startOfMonth)(minDate), -1), this.dateOptions),
-      treshold: 500,
+      threshold: 500,
       type: "variable",
       ref: target => this.list = target,
       itemSizeEstimator: this.estimateMonthSize,

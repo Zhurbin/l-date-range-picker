@@ -59,6 +59,7 @@ class Calendar extends PureComponent {
     if (!scroll.enabled) return { enabled: false };
 
     const longMonthHeight = scroll.longMonthHeight || scroll.monthHeight;
+
     if (direction === 'vertical') {
       return {
         enabled: true,
@@ -181,6 +182,7 @@ class Calendar extends PureComponent {
     const { isFirstRender } = this;
 
     const visibleMonths = this.list.getVisibleRange();
+
     // prevent scroll jump with wrong visible value
     if (visibleMonths[0] === undefined) return;
     const visibleMonth = addMonths(minDate, visibleMonths[0] || 0);
@@ -453,6 +455,7 @@ class Calendar extends PureComponent {
       ...range,
       color: range.color || rangeColors[i] || color,
     }));
+
     return (
       <div
         className={classnames(this.styles.calendarWrapper, className)}
@@ -475,6 +478,7 @@ class Calendar extends PureComponent {
                 style={{
                   width: scrollArea.calendarWidth + 11,
                   height: scrollArea.calendarHeight + 11,
+                  overflow: 'hidden',
                 }}
                 onScroll={this.handleScroll}>
                 <ReactList
@@ -483,7 +487,7 @@ class Calendar extends PureComponent {
                     addDays(startOfMonth(minDate), -1),
                     this.dateOptions
                   )}
-                  treshold={500}
+                  threshold={500}
                   type="variable"
                   ref={target => (this.list = target)}
                   itemSizeEstimator={this.estimateMonthSize}
