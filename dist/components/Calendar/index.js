@@ -496,8 +496,7 @@ class Calendar extends _react.PureComponent {
       onMouseLeave: () => onPreviewChange && onPreviewChange(),
       style: {
         width: scrollArea.calendarWidth + 11,
-        height: scrollArea.calendarHeight + 11,
-        overflow: 'hidden'
+        height: scrollArea.calendarHeight + 11
       },
       onScroll: this.handleScroll
     }, /*#__PURE__*/_react.default.createElement(_reactList.default, {

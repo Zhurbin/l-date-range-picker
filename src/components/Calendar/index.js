@@ -478,7 +478,6 @@ class Calendar extends PureComponent {
                 style={{
                   width: scrollArea.calendarWidth + 11,
                   height: scrollArea.calendarHeight + 11,
-                  overflow: 'hidden',
                 }}
                 onScroll={this.handleScroll}>
                 <ReactList
