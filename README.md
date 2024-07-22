@@ -1,10 +1,10 @@
-# l-date-range-picker
+# date-range-picker
 
 Based on react-date-range component: [react-date-range repo](https://github.com/hypeserver/react-date-range).
 
 A date library agnostic React component for choosing dates and date ranges. Uses [date-fns](http://date-fns.org/) for date operations.
 
-### Why should you use `l-date-range-picker`?
+### Why should you use `date-range-picker`?
 
 - Stateless date operations
 - Highly configurable
@@ -24,7 +24,7 @@ A date library agnostic React component for choosing dates and date ranges. Uses
 Insert to you package.json and run install command:
 
 ```
-"l-date-range-picker": "Zhurbin/l-date-range-picker#main",
+"date-range-picker": "Zhurbin/l-date-range-picker#main",
 ```
 
 This plugin expects `react` and `date-fns` as peerDependencies, It means that you need to install them in your project folder.
@@ -50,7 +50,7 @@ git push
 And updae library into your project
 
 ```
-yarn upgrade l-date-range-picker
+yarn upgrade date-range-picker
 ```
 
 ## Usage
@@ -58,13 +58,13 @@ yarn upgrade l-date-range-picker
 You need to import skeleton and theme styles first.
 
 ```javascript
-import 'l-date-range-picker/dist/styles.css'; // main style file
-import 'l-date-range-picker/dist/theme/default.css'; // theme css file
+import 'date-range-picker/dist/styles.css'; // main style file
+import 'date-range-picker/dist/theme/default.css'; // theme css file
 ```
 
 ### `DatePicker`
 ```javascript
-import { Calendar } from 'l-date-range-picker';
+import { Calendar } from 'date-range-picker';
 
 class MyComponent extends Component {
   handleSelect(date){
@@ -84,7 +84,7 @@ class MyComponent extends Component {
 
 ### `DateRangePicker / DateRange`
 ```javascript
-import { DateRangePicker } from 'l-date-range-picker';
+import { DateRangePicker } from 'date-range-picker';
 
 class MyComponent extends Component {
   handleSelect(ranges){
