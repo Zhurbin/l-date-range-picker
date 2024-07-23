@@ -11,7 +11,7 @@ var _Month = _interopRequireDefault(require("../Month"));
 var _DateInput = _interopRequireDefault(require("../DateInput"));
 var _utils = require("../../utils");
 var _classnames = _interopRequireDefault(require("classnames"));
-var _reactList = _interopRequireDefault(require("react-list"));
+var _reactViewportList = require("react-viewport-list");
 var _shallowEqual = require("shallow-equal");
 var _dateFns = require("date-fns");
 var _enUS = require("date-fns/locale/en-US");
@@ -30,8 +30,11 @@ class Calendar extends _react.PureComponent {
     super(_props, context);
     _this = this;
     _defineProperty(this, "customScrollTo", function (index) {
-      let padding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      if (index != null) _this.list.setScroll(_this.list.getSpaceBefore(index) - padding);
+      let padding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 16;
+      if (index != null) _this.listRef.current.scrollToIndex({
+        index,
+        offset: -padding
+      });
     });
     _defineProperty(this, "focusToDate", function (date) {
       let props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _this.props;
@@ -51,12 +54,12 @@ class Calendar extends _react.PureComponent {
         return;
       }
       const targetMonthIndex = (0, _dateFns.differenceInCalendarMonths)(date, props.minDate, _this.dateOptions);
-      const visibleMonths = _this.list.getVisibleRange();
+      const visibleMonths = [_this.listRef.current.getScrollPosition()?.index]; // this.list.getVisibleRange();
       if (preventUnnecessary && visibleMonths.includes(targetMonthIndex)) return;
       _this.isFirstRender = true;
 
       // Use custom scroll function, cause list.scrollTo not supported paddings
-      _this.customScrollTo(targetMonthIndex, preventUnnecessary ? 0 : 16);
+      _this.customScrollTo(targetMonthIndex);
       _this.setState({
         focusedDate: date
       });
@@ -65,7 +68,7 @@ class Calendar extends _react.PureComponent {
       let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this.props;
       const newProps = props.scroll.enabled ? {
         ...props,
-        months: _this.list.getVisibleRange().length
+        months: 1
       } : props;
       const newFocus = (0, _utils.calcFocusDate)(_this.state.focusedDate, newProps);
       _this.focusToDate(newFocus, newProps, false);
@@ -121,7 +124,9 @@ class Calendar extends _react.PureComponent {
       const {
         isFirstRender
       } = this;
-      const visibleMonths = this.list.getVisibleRange();
+
+      // Add +1, because getScrollPosition get last visible month
+      const visibleMonths = [this.listRef.current.getScrollPosition()?.index + 1];
 
       // prevent scroll jump with wrong visible value
       if (visibleMonths[0] === undefined) return;
@@ -373,6 +378,8 @@ class Calendar extends _react.PureComponent {
       },
       scrollArea: this.calcScrollArea(_props)
     };
+    this.scrollContainerRef = /*#__PURE__*/_react.default.createRef(null);
+    this.listRef = /*#__PURE__*/_react.default.createRef(null);
   }
   getMonthNames() {
     return [...Array(12).keys()].map(i => this.props.locale.localize.month(i));
@@ -406,8 +413,7 @@ class Calendar extends _react.PureComponent {
   }
   componentDidMount() {
     if (this.props.scroll.enabled) {
-      // prevent react-list's initial render focus problem
-      setTimeout(() => this.focusToDate(this.state.focusedDate));
+      this.focusToDate(this.state.focusedDate);
     }
   }
   componentDidUpdate(prevProps) {
@@ -473,6 +479,11 @@ class Calendar extends _react.PureComponent {
       ...range,
       color: range.color || rangeColors[i] || color
     }));
+    const monthsLength = (0, _dateFns.differenceInCalendarMonths)((0, _dateFns.endOfMonth)(maxDate), (0, _dateFns.addDays)((0, _dateFns.startOfMonth)(minDate), -1), this.dateOptions);
+    const monthsItems = [...Array(monthsLength)].map((item, index) => ({
+      index,
+      key: `month-item-${index}`
+    }));
     return /*#__PURE__*/_react.default.createElement("div", {
       className: (0, _classnames.default)(this.styles.calendarWrapper, className),
       onMouseUp: () => this.setState({
@@ -492,6 +503,7 @@ class Calendar extends _react.PureComponent {
     }, showDateDisplay && this.renderDateDisplay(), monthAndYearRenderer(focusedDate, this.changeShownDate, this.props), scroll.enabled ? /*#__PURE__*/_react.default.createElement("div", {
       className: this.styles.arrowsWrapper
     }, /*#__PURE__*/_react.default.createElement("div", null, isVertical && this.renderWeekdays(this.dateOptions), /*#__PURE__*/_react.default.createElement("div", {
+      ref: this.scrollContainerRef,
       className: (0, _classnames.default)(this.styles.infiniteMonths, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal),
       onMouseLeave: () => onPreviewChange && onPreviewChange(),
       style: {
@@ -499,42 +511,39 @@ class Calendar extends _react.PureComponent {
         height: scrollArea.calendarHeight + 11
       },
       onScroll: this.handleScroll
-    }, /*#__PURE__*/_react.default.createElement(_reactList.default, {
-      length: (0, _dateFns.differenceInCalendarMonths)((0, _dateFns.endOfMonth)(maxDate), (0, _dateFns.addDays)((0, _dateFns.startOfMonth)(minDate), -1), this.dateOptions),
-      threshold: 500,
-      type: "variable",
-      ref: target => this.list = target,
-      itemSizeEstimator: this.estimateMonthSize,
-      axis: isVertical ? 'y' : 'x',
-      itemRenderer: (index, key) => {
-        const monthStep = (0, _dateFns.addMonths)(minDate, index);
-        return /*#__PURE__*/_react.default.createElement(_Month.default, _extends({}, this.props, {
-          onPreviewChange: onPreviewChange || this.updatePreview,
-          preview: preview || this.state.preview,
-          ranges: ranges,
-          key: key,
-          drag: this.state.drag,
-          dateOptions: this.dateOptions,
-          disabledDates: disabledDates,
-          disabledDay: disabledDay,
-          month: monthStep,
-          onDragSelectionStart: this.onDragSelectionStart,
-          onDragSelectionEnd: this.onDragSelectionEnd,
-          onDragSelectionMove: this.onDragSelectionMove,
-          onMouseLeave: () => onPreviewChange && onPreviewChange(),
-          styles: this.styles,
-          style: isVertical ? {
-            height: this.estimateMonthSize(index),
-            ...monthStyle
-          } : {
-            height: scrollArea.monthHeight,
-            width: this.estimateMonthSize(index),
-            ...monthStyle
-          },
-          showMonthName: true,
-          showWeekDays: !isVertical
-        }));
-      }
+    }, /*#__PURE__*/_react.default.createElement(_reactViewportList.ViewportList, {
+      ref: this.listRef,
+      viewportRef: this.scrollContainerRef,
+      items: monthsItems,
+      axis: isVertical ? 'y' : 'x'
+    }, item => {
+      const monthStep = (0, _dateFns.addMonths)(minDate, item.index);
+      return /*#__PURE__*/_react.default.createElement(_Month.default, _extends({}, this.props, {
+        onPreviewChange: onPreviewChange || this.updatePreview,
+        preview: preview || this.state.preview,
+        ranges: ranges,
+        key: item.key,
+        drag: this.state.drag,
+        dateOptions: this.dateOptions,
+        disabledDates: disabledDates,
+        disabledDay: disabledDay,
+        month: monthStep,
+        onDragSelectionStart: this.onDragSelectionStart,
+        onDragSelectionEnd: this.onDragSelectionEnd,
+        onDragSelectionMove: this.onDragSelectionMove,
+        onMouseLeave: () => onPreviewChange && onPreviewChange(),
+        styles: this.styles,
+        style: isVertical ? {
+          height: this.estimateMonthSize(item.index),
+          ...monthStyle
+        } : {
+          height: scrollArea.monthHeight,
+          width: this.estimateMonthSize(item.index),
+          ...monthStyle
+        },
+        showMonthName: true,
+        showWeekDays: !isVertical
+      }));
     }))), this.renderMonthAndYearVertical(this.changeShownDate, this.props)) : /*#__PURE__*/_react.default.createElement("div", {
       className: (0, _classnames.default)(this.styles.months, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal)
     }, new Array(this.props.months).fill(null).map((_, i) => {
