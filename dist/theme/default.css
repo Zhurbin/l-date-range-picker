@@ -201,6 +201,10 @@
         color: #fff;
       }
 
+.rdrDayStartPreview ~ .rdrDayNumber span {
+      color: #fff;
+    }
+
 .rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge{
   background: currentColor;
   position: absolute;
