@@ -5,7 +5,7 @@ import Month from '../Month';
 import DateInput from '../DateInput';
 import { calcFocusDate, generateStyles, getMonthDisplayRange } from '../../utils';
 import classnames from 'classnames';
-import ReactList from 'react-list';
+import { ViewportList } from 'react-viewport-list';
 import { shallowEqualObjects } from 'shallow-equal';
 import {
   addMonths,
@@ -49,6 +49,8 @@ class Calendar extends PureComponent {
       },
       scrollArea: this.calcScrollArea(props),
     };
+    this.scrollContainerRef = React.createRef(null);
+    this.listRef = React.createRef(null);
   }
   getMonthNames() {
     return [...Array(12).keys()].map(i => this.props.locale.localize.month(i));
@@ -77,8 +79,8 @@ class Calendar extends PureComponent {
       calendarHeight: longMonthHeight || 300,
     };
   }
-  customScrollTo = (index, padding = 0) => {
-    if (index != null) this.list.setScroll(this.list.getSpaceBefore(index) - padding);
+  customScrollTo = (index, padding = 16) => {
+    if (index != null) this.listRef.current.scrollToIndex({ index, offset: -padding });
   };
   focusToDate = (date, props = this.props, preventUnnecessary = true) => {
     if (!props.scroll.enabled) {
@@ -94,19 +96,20 @@ class Calendar extends PureComponent {
       return;
     }
     const targetMonthIndex = differenceInCalendarMonths(date, props.minDate, this.dateOptions);
-    const visibleMonths = this.list.getVisibleRange();
+
+    const visibleMonths = [this.listRef.current.getScrollPosition()?.index]; // this.list.getVisibleRange();
     if (preventUnnecessary && visibleMonths.includes(targetMonthIndex)) return;
     this.isFirstRender = true;
 
     // Use custom scroll function, cause list.scrollTo not supported paddings
-    this.customScrollTo(targetMonthIndex, preventUnnecessary ? 0 : 16);
+    this.customScrollTo(targetMonthIndex);
     this.setState({ focusedDate: date });
   };
   updateShownDate = (props = this.props) => {
     const newProps = props.scroll.enabled
       ? {
           ...props,
-          months: this.list.getVisibleRange().length,
+          months: 1,
         }
       : props;
     const newFocus = calcFocusDate(this.state.focusedDate, newProps);
@@ -127,8 +130,7 @@ class Calendar extends PureComponent {
   };
   componentDidMount() {
     if (this.props.scroll.enabled) {
-      // prevent react-list's initial render focus problem
-      setTimeout(() => this.focusToDate(this.state.focusedDate));
+      this.focusToDate(this.state.focusedDate);
     }
   }
 
@@ -181,7 +183,8 @@ class Calendar extends PureComponent {
     const { focusedDate } = this.state;
     const { isFirstRender } = this;
 
-    const visibleMonths = this.list.getVisibleRange();
+    // Add +1, because getScrollPosition get last visible month
+    const visibleMonths = [this.listRef.current.getScrollPosition()?.index + 1];
 
     // prevent scroll jump with wrong visible value
     if (visibleMonths[0] === undefined) return;
@@ -456,6 +459,17 @@ class Calendar extends PureComponent {
       color: range.color || rangeColors[i] || color,
     }));
 
+    const monthsLength = differenceInCalendarMonths(
+      endOfMonth(maxDate),
+      addDays(startOfMonth(minDate), -1),
+      this.dateOptions
+    );
+
+    const monthsItems = [...Array(monthsLength)].map((item, index) => ({
+      index,
+      key: `month-item-${index}`,
+    }));
+
     return (
       <div
         className={classnames(this.styles.calendarWrapper, className)}
@@ -470,6 +484,7 @@ class Calendar extends PureComponent {
             <div>
               {isVertical && this.renderWeekdays(this.dateOptions)}
               <div
+                ref={this.scrollContainerRef}
                 className={classnames(
                   this.styles.infiniteMonths,
                   isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal
@@ -480,26 +495,20 @@ class Calendar extends PureComponent {
                   height: scrollArea.calendarHeight + 11,
                 }}
                 onScroll={this.handleScroll}>
-                <ReactList
-                  length={differenceInCalendarMonths(
-                    endOfMonth(maxDate),
-                    addDays(startOfMonth(minDate), -1),
-                    this.dateOptions
-                  )}
-                  threshold={500}
-                  type="variable"
-                  ref={target => (this.list = target)}
-                  itemSizeEstimator={this.estimateMonthSize}
-                  axis={isVertical ? 'y' : 'x'}
-                  itemRenderer={(index, key) => {
-                    const monthStep = addMonths(minDate, index);
+                <ViewportList
+                  ref={this.listRef}
+                  viewportRef={this.scrollContainerRef}
+                  items={monthsItems}
+                  axis={isVertical ? 'y' : 'x'}>
+                  {item => {
+                    const monthStep = addMonths(minDate, item.index);
                     return (
                       <Month
                         {...this.props}
                         onPreviewChange={onPreviewChange || this.updatePreview}
                         preview={preview || this.state.preview}
                         ranges={ranges}
-                        key={key}
+                        key={item.key}
                         drag={this.state.drag}
                         dateOptions={this.dateOptions}
                         disabledDates={disabledDates}
@@ -512,10 +521,10 @@ class Calendar extends PureComponent {
                         styles={this.styles}
                         style={
                           isVertical
-                            ? { height: this.estimateMonthSize(index), ...monthStyle }
+                            ? { height: this.estimateMonthSize(item.index), ...monthStyle }
                             : {
                                 height: scrollArea.monthHeight,
-                                width: this.estimateMonthSize(index),
+                                width: this.estimateMonthSize(item.index),
                                 ...monthStyle,
                               }
                         }
@@ -524,7 +533,7 @@ class Calendar extends PureComponent {
                       />
                     );
                   }}
-                />
+                </ViewportList>
               </div>
             </div>
             {this.renderMonthAndYearVertical(this.changeShownDate, this.props)}
