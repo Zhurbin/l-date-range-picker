@@ -76,7 +76,7 @@
 
 .rdrMonth{
   box-sizing: content-box;
-  width: 248px;
+  width: 252px;
 }
 
 .rdrWeekDays{
@@ -147,6 +147,10 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+
+.rdrDateRangeWrapperContainer {
+  display: inline-flex;
 }
 
 .rdrDateInput {

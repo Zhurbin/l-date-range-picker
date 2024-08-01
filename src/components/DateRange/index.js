@@ -125,22 +125,24 @@ class DateRange extends Component {
   };
   render() {
     return (
-      <Calendar
-        focusedRange={this.state.focusedRange}
-        onRangeFocusChange={this.handleRangeFocusChange}
-        preview={this.state.preview}
-        onPreviewChange={(value, previewMode) => {
-          this.updatePreview(value ? this.calcNewSelection(value) : null, previewMode);
-        }}
-        {...this.props}
-        displayMode="dateRange"
-        className={classnames(this.styles.dateRangeWrapper, this.props.className)}
-        onChange={this.setSelection}
-        updateRange={val => this.setSelection(val, false)}
-        ref={target => {
-          this.calendar = target;
-        }}
-      />
+      <div className={classnames(this.styles.dateRangeWrapperContainer)}>
+        <Calendar
+          focusedRange={this.state.focusedRange}
+          onRangeFocusChange={this.handleRangeFocusChange}
+          preview={this.state.preview}
+          onPreviewChange={(value, previewMode) => {
+            this.updatePreview(value ? this.calcNewSelection(value) : null, previewMode);
+          }}
+          {...this.props}
+          displayMode="dateRange"
+          className={classnames(this.styles.dateRangeWrapper, this.props.className)}
+          onChange={this.setSelection}
+          updateRange={val => this.setSelection(val, false)}
+          ref={target => {
+            this.calendar = target;
+          }}
+        />
+      </div>
     );
   }
 }

@@ -1,7 +1,7 @@
 .rdrCalendarWrapper{
   font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #4a4a49;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .rdrDateDisplayWrapper{}
@@ -49,7 +49,7 @@
     border: 0;
     background: transparent;
     padding: 10px 30px 10px 10px;
-    border-radius: 4px;
+    border-radius: 6px;
     outline: 0;
     color: #3e484f;
     background: url("data:image/svg+xml;utf8,<svg width='9px' height='6px' viewBox='0 0 9 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' transform='translate(-636.000000, -171.000000)' fill-opacity='0.368716033'><g id='input' transform='translate(172.000000, 37.000000)' fill='%230E242F' fill-rule='nonzero'><g id='Group-9' transform='translate(323.000000, 127.000000)'><path d='M142.280245,7.23952813 C141.987305,6.92353472 141.512432,6.92361662 141.219585,7.23971106 C140.926739,7.5558055 140.926815,8.06821394 141.219755,8.38420735 L145.498801,13 L149.780245,8.38162071 C150.073185,8.0656273 150.073261,7.55321886 149.780415,7.23712442 C149.487568,6.92102998 149.012695,6.92094808 148.719755,7.23694149 L145.498801,10.7113732 L142.280245,7.23952813 Z' id='arrow'></path></g></g></g></svg>") no-repeat;
@@ -136,8 +136,8 @@
           user-select: none;
   border: 0;
   padding: 0;
-  line-height: 36px;
-  height: 36px;
+  line-height: 40px;
+  height: 40px;
   text-align: center;
   color: #4A4A49
 }
@@ -190,12 +190,8 @@
         color: #fff;
       }
 
-.rdrDayToday .rdrStartEdge ~ .rdrDayNumber,.rdrDayToday .rdrEndEdge ~ .rdrDayNumber,.rdrDayToday .rdrDayStartPreview ~ .rdrDayNumber,.rdrDayToday .rdrDayEndPreview ~ .rdrDayNumber{
-      background: #0A0A0A;
-    }
-
-.rdrDayToday .rdrStartEdge ~ .rdrDayNumber span, .rdrDayToday .rdrEndEdge ~ .rdrDayNumber span, .rdrDayToday .rdrDayStartPreview ~ .rdrDayNumber span, .rdrDayToday .rdrDayEndPreview ~ .rdrDayNumber span {
-        color: #fff;
+.rdrDay:not(.rdrDayPassive).rdrDayHovered .rdrDayStartPreview ~ .rdrDayNumber span, .rdrDay:not(.rdrDayPassive).rdrDayHovered .rdrDayEndPreview ~ .rdrDayNumber span {
+        color: #0A0A0A;
       }
 
 .rdrDayStartPreview ~ .rdrDayNumber span {
@@ -243,7 +239,7 @@
 .rdrStartEdgeCover, .rdrEndEdgeCover{
   display: block;
   width: 36px;
-  height: 32px;
+  height: 36px;
   background: #0A0A0A !important;
   margin: 0 auto;
 }
@@ -268,15 +264,15 @@
 }
 
 .rdrStartEdgeCover{
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
 .rdrInRangeCover{}
 
 .rdrEndEdgeCover{
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .rdrSelected{
@@ -284,27 +280,27 @@
 }
 
 .rdrDayStartOfMonth .rdrInRange, .rdrDayStartOfMonth .rdrEndEdge, .rdrDayStartOfWeek .rdrInRange, .rdrDayStartOfWeek .rdrEndEdge{
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     left: 2px;
   }
 
 .rdrDayEndOfMonth .rdrInRange, .rdrDayEndOfMonth .rdrStartEdge, .rdrDayEndOfWeek .rdrInRange, .rdrDayEndOfWeek .rdrStartEdge{
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
     right: 2px;
   }
 
 .rdrDayStartOfMonth .rdrDayInPreview, .rdrDayStartOfMonth .rdrDayEndPreview, .rdrDayStartOfWeek .rdrDayInPreview, .rdrDayStartOfWeek .rdrDayEndPreview{
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     border-left-width: 1px;
     left: 0px;
   }
 
 .rdrDayEndOfMonth .rdrDayInPreview, .rdrDayEndOfMonth .rdrDayStartPreview, .rdrDayEndOfWeek .rdrDayInPreview, .rdrDayEndOfWeek .rdrDayStartPreview{
-   border-top-right-radius: 4px;
-   border-bottom-right-radius: 4px;
+   border-top-right-radius: 6px;
+   border-bottom-right-radius: 6px;
    border-right-width: 1px;
    right: 0px;
  }
@@ -353,8 +349,12 @@
     border-bottom-right-radius: 0;
   }
 
+.rdrDayHovered .rdrStartEdge.rdrEndEdge ~  .rdrDayStartPreview.rdrDayEndPreview{
+    border-radius: 6px;
+  }
+
 .rdrDefinedRangesWrapper{
-  font-size: 12px;
+  font-size: 14px;
   width: 128px;
   background: #fff;
 }

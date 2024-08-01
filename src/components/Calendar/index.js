@@ -65,7 +65,7 @@ class Calendar extends PureComponent {
     if (direction === 'vertical') {
       return {
         enabled: true,
-        monthHeight: scroll.monthHeight || 200,
+        monthHeight: scroll.monthHeight || 220,
         longMonthHeight: longMonthHeight || 260,
         calendarWidth: 'auto',
         calendarHeight: (scroll.calendarHeight || longMonthHeight || 240) * months,

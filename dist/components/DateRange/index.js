@@ -157,7 +157,9 @@ class DateRange extends _react.Component {
     this.styles = (0, _utils.generateStyles)([_styles.default, props.classNames]);
   }
   render() {
-    return /*#__PURE__*/_react.default.createElement(_Calendar.default, _extends({
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: (0, _classnames.default)(this.styles.dateRangeWrapperContainer)
+    }, /*#__PURE__*/_react.default.createElement(_Calendar.default, _extends({
       focusedRange: this.state.focusedRange,
       onRangeFocusChange: this.handleRangeFocusChange,
       preview: this.state.preview,
@@ -172,7 +174,7 @@ class DateRange extends _react.Component {
       ref: target => {
         this.calendar = target;
       }
-    }));
+    })));
   }
 }
 DateRange.defaultProps = {

@@ -1,4 +1,5 @@
 export default {
+  dateRangeWrapperContainer: 'rdrDateRangeWrapperContainer',
   dateRangeWrapper: 'rdrDateRangeWrapper',
   calendarWrapper: 'rdrCalendarWrapper',
   dateDisplay: 'rdrDateDisplay',
