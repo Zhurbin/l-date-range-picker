@@ -27,3 +27,36 @@ const [state, setState] = useState([
   ranges={state}
 />
 ```
+
+#### Example: Without presets view
+
+```jsx inside Markdown
+import { addDays, endOfDay, startOfDay } from 'date-fns';
+import { useState } from 'react';
+import { createStaticRanges } from 'date-range-picker';
+
+const [state, setState] = useState([
+  {
+    startDate: new Date(),
+    endDate: addDays(new Date(), 7),
+    // color: '#E4F7FB',
+    key: 'selection'
+  }
+]);
+
+
+<DateRange
+  ranges={state}
+  months={1}
+  direction='vertical'
+  scroll={{
+    enabled: true,
+    calendarHeight: 255,
+  }}
+  moveRangeOnFirstSelection={false}
+  navigatorRenderer={(() => {})}
+  editableDateInputs
+  onChange={item => setState([item.selection])}
+  inputRanges={[]}
+/>;
+```
