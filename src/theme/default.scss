@@ -7,7 +7,7 @@
 .rdrDateDisplayWrapper{}
 
 .rdrDateDisplay{
-  margin: 0 0 12px 12px;
+  margin: 0 0 12px 0;
 }
 
 .rdrDateDisplayItem{
@@ -16,15 +16,15 @@
     height: 32px;
     line-height: 32px;
     background: transparent;
-    color: #4A4A49;
+    color: #0A0A0A;
     background-color: rgb(255, 255, 255);
-    line-height: 32px;
     text-align: left;
     
-    width: calc(100% - 24px);
+    width: 100%;
     padding: 0 12px;
-    border-radius: 4px;
-    border: 1px solid #BDCFE1;
+    border-radius: 6px;
+    border: 1px solid #D6D6D6;
+    box-sizing: border-box;
   }
 }
 
@@ -112,12 +112,12 @@
 
 
 .rdrWeekDays {
-  margin: 0 12px;
+  margin: 0;
   border-bottom: 1px solid #E6E6E6;
 }
 
 .rdrMonth{
-  padding: 0 12px 16px;
+  padding: 0 0 16px;
   .rdrWeekDays {
     padding: 0;
   }
@@ -129,9 +129,9 @@
 
 .rdrWeekDay {
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 32px;
-  color: #868685;
+  color: #757575;
 }
 
 .rdrDay {
@@ -166,7 +166,7 @@
   .rdrDayNumber {
     border-radius: 50%;
     margin: 2px 4px;
-    background: #F5F5F5;
+    border: 1px solid #D6D6D6;
     width: 28px;
     height: 28px;
     margin: 2px auto;
@@ -174,7 +174,7 @@
 
   .rdrInRange, .rdrDayInPreview {
     & ~ .rdrDayNumber {
-      border: 1px solid #0A0A0A;
+      border: 1px solid #D6D6D6;
       background: none;
     }
   }
@@ -228,6 +228,16 @@
   }
 }
 
+.rdrDayHovered {
+  .rdrDayStartPreview {
+    & ~ .rdrDayNumber {
+      span {
+        color: #0A0A0A;
+      }
+    }
+  }
+}
+
 .rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge{
   background: currentColor;
   position: absolute;
@@ -245,16 +255,16 @@
 .rdrInRange{}
 
 .rdrStartEdge{
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
   background: #0A0A0A !important;
   color: #fff;
   background: none !important;
 }
 
 .rdrEndEdge{
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
   color: #fff;
   background: none !important;
 }
@@ -345,13 +355,13 @@
   right: 0;
   bottom: 4px;
   pointer-events: none;
-  background: #F5F5F5;
+  background: #E6E6E6;
 }
 
 
 .rdrDayStartPreview{
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
   left: 0;
   background: #0A0A0A;
 }
@@ -359,8 +369,8 @@
 .rdrDayInPreview{}
 
 .rdrDayEndPreview{
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
   right: 0;
   background: #0A0A0A;
 }
@@ -370,7 +380,7 @@
     background: #E6E6E6;
   }
   .rdrDayStartPreview.rdrDayEndPreview{
-    border-radius: 4px;
+    border-radius: 6px;
   }
   .rdrEndEdge ~  .rdrDayStartPreview.rdrDayEndPreview{
     border-top-left-radius: 0;
@@ -384,12 +394,12 @@
 
 .rdrDefinedRangesWrapper{
   font-size: 12px;
-  width: 140px;
-  border-right: 1px solid #E6E6E6;
+  width: 128px;
   background: #fff;
   .rdrStaticRangeSelected {
     .rdrStaticRangeLabel {
-      background: #E6E6E6;
+      background: #F5F5F5;
+      color: #0A0A0A;
     }
   }
 }
@@ -399,17 +409,19 @@
   cursor: pointer;
   display: block;
   outline: 0;
-  padding: 0 12px 4px 0;
+  padding: 0 16px 0 0;
+  margin-bottom: 8px;
   background: #fff;
 
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
-  color: #4a4a49;
+  color: #757575;
 
   &:hover, &:focus{
     .rdrStaticRangeLabel{
-      background: #E6E6E6;
+      background: #F5F5F5;
+      color: #0A0A0A;
     }
   }
 }
@@ -419,7 +431,8 @@
   outline: 0;
   padding: 6px 12px;
   text-align: left;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-weight: 500;
 }
 
 .rdrInputRanges{
@@ -435,7 +448,7 @@
   width: 30px;
   height: 30px;
   line-height: 30px;
-  border-radius: 4px;
+  border-radius: 6px;
   text-align: center;
   border: solid 1px rgb(222, 231, 235);
   margin-right: 10px;
@@ -462,7 +475,7 @@
 .rdrDayPassive{
   pointer-events: none;
   .rdrDayNumber span{
-    color: #A4A2A2;
+    color: #757575;
   }
   .rdrInRange, .rdrStartEdge, .rdrEndEdge, .rdrSelected, .rdrDayStartPreview, .rdrDayInPreview, .rdrDayEndPreview{
     display: none;
@@ -481,7 +494,7 @@
 .rdrMonthName{
   text-align: left;
   font-weight: 500;
-  color: #4A4A49;
+  color: #525252;
   font-size: 14px;
   padding: 0 12px 8px;
 }
