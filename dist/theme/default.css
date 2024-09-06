@@ -166,13 +166,19 @@
     border: 1px solid #D6D6D6;
     width: 28px;
     height: 28px;
-    margin: 2px auto;
+    margin: 3px auto;
   }
 
 .rdrDayToday .rdrInRange ~ .rdrDayNumber, .rdrDayToday .rdrDayInPreview ~ .rdrDayNumber {
       border: 1px solid #D6D6D6;
       background: none;
     }
+
+.rdrDayToday .rdrEndEdge ~ .rdrDayNumber,
+  .rdrDayToday .rdrStartEdge ~ .rdrDayNumber {
+    border: none;
+    margin: 4px auto;
+  }
 
 .rdrDayToday:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span:after,.rdrDayToday:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span:after,.rdrDayToday:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span:after,.rdrDayToday:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span:after{
       background: #fff;

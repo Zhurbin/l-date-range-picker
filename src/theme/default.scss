@@ -169,7 +169,7 @@
     border: 1px solid #D6D6D6;
     width: 28px;
     height: 28px;
-    margin: 2px auto;
+    margin: 3px auto;
   }
 
   .rdrInRange, .rdrDayInPreview {
@@ -177,6 +177,12 @@
       border: 1px solid #D6D6D6;
       background: none;
     }
+  }
+
+  .rdrEndEdge ~ .rdrDayNumber,
+  .rdrStartEdge ~ .rdrDayNumber {
+    border: none;
+    margin: 4px auto;
   }
 }
 
