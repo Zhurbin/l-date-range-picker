@@ -18,7 +18,7 @@
     color: #0A0A0A;
     background-color: rgb(255, 255, 255);
     text-align: left;
-    
+
     width: 100%;
     padding: 0 12px;
     border-radius: 6px;
@@ -435,10 +435,6 @@
   left: 0px;
   right: 0px;
   background: transparent;
-}
-
-.rdrDayPassive{
-  pointer-events: none;
 }
 
 .rdrDayPassive .rdrDayNumber span{

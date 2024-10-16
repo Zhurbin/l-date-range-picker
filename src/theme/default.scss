@@ -19,7 +19,7 @@
     color: #0A0A0A;
     background-color: rgb(255, 255, 255);
     text-align: left;
-    
+
     width: 100%;
     padding: 0 12px;
     border-radius: 6px;
@@ -121,11 +121,11 @@
   .rdrWeekDays {
     padding: 0;
   }
-}  
+}
 
 .rdrMonths.rdrMonthsVertical .rdrMonth:first-child .rdrMonthName{
   display: none;
-}  
+}
 
 .rdrWeekDay {
   font-weight: 400;
@@ -481,7 +481,6 @@
 }
 
 .rdrDayPassive{
-  pointer-events: none;
   .rdrDayNumber span{
     color: #757575;
   }
