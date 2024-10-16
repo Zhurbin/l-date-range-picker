@@ -66,5 +66,7 @@ var _default = exports.default = {
   inRangeCover: 'rdrInRangeCover',
   endEdgeCover: 'rdrEndEdgeCover',
   startEdgeCoverFloor: 'rdrStartEdgeCoverFloor',
-  endEdgeCoverFloor: 'rdrEndEdgeCoverFloor'
+  endEdgeCoverFloor: 'rdrEndEdgeCoverFloor',
+  error: 'rdrError',
+  inputError: 'rdrInputError'
 };

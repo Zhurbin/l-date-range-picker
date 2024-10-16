@@ -224,7 +224,9 @@ class Calendar extends _react.PureComponent {
         editableDateInputs,
         startDatePlaceholder,
         endDatePlaceholder,
-        ariaLabels
+        ariaLabels,
+        startError,
+        endError
       } = this.props;
       const defaultColor = rangeColors[focusedRange[0]] || color;
       const styles = this.styles;
@@ -240,7 +242,8 @@ class Calendar extends _react.PureComponent {
           }
         }, /*#__PURE__*/_react.default.createElement(_DateInput.default, {
           className: (0, _classnames.default)(styles.dateDisplayItem, {
-            [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0
+            [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0,
+            [styles.inputError]: startError
           }),
           readOnly: !editableDateInputs,
           disabled: range.disabled,
@@ -253,7 +256,8 @@ class Calendar extends _react.PureComponent {
           onFocus: () => this.handleRangeFocusChange(i, 0)
         }), /*#__PURE__*/_react.default.createElement(_DateInput.default, {
           className: (0, _classnames.default)(styles.dateDisplayItem, {
-            [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 1
+            [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 1,
+            [styles.inputError]: endError
           }),
           readOnly: !editableDateInputs,
           disabled: range.disabled,
@@ -467,7 +471,9 @@ class Calendar extends _react.PureComponent {
       navigatorRenderer,
       className,
       preview,
-      monthStyle
+      monthStyle,
+      startError,
+      endError
     } = this.props;
     const {
       scrollArea,
@@ -570,7 +576,9 @@ class Calendar extends _react.PureComponent {
         showMonthName: !isVertical || i > 0,
         style: monthStyle
       }));
-    })));
+    })), (startError || endError) && /*#__PURE__*/_react.default.createElement("div", {
+      className: this.styles.error
+    }, startError ? startError : endError));
   }
 }
 Calendar.defaultProps = {
@@ -663,6 +671,8 @@ Calendar.propTypes = {
   calendarFocus: _propTypes.default.string,
   preventSnapRefocus: _propTypes.default.bool,
   ariaLabels: _accessibility.ariaLabelsShape,
-  monthStyle: _propTypes.default.object
+  monthStyle: _propTypes.default.object,
+  startError: _propTypes.default.string,
+  endError: _propTypes.default.string
 };
 var _default = exports.default = Calendar;

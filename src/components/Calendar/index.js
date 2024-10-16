@@ -314,6 +314,8 @@ class Calendar extends PureComponent {
       startDatePlaceholder,
       endDatePlaceholder,
       ariaLabels,
+      startError,
+      endError,
     } = this.props;
 
     const defaultColor = rangeColors[focusedRange[0]] || color;
@@ -332,6 +334,7 @@ class Calendar extends PureComponent {
               <DateInput
                 className={classnames(styles.dateDisplayItem, {
                   [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0,
+                  [styles.inputError]: startError,
                 })}
                 readOnly={!editableDateInputs}
                 disabled={range.disabled}
@@ -350,6 +353,7 @@ class Calendar extends PureComponent {
               <DateInput
                 className={classnames(styles.dateDisplayItem, {
                   [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 1,
+                  [styles.inputError]: endError,
                 })}
                 readOnly={!editableDateInputs}
                 disabled={range.disabled}
@@ -449,6 +453,8 @@ class Calendar extends PureComponent {
       className,
       preview,
       monthStyle,
+      startError,
+      endError,
     } = this.props;
     const { scrollArea, focusedDate } = this.state;
     const isVertical = direction === 'vertical';
@@ -574,6 +580,9 @@ class Calendar extends PureComponent {
             })}
           </div>
         )}
+        {(startError || endError) && (
+          <div className={this.styles.error}>{startError ? startError : endError}</div>
+        )}
       </div>
     );
   }
@@ -671,6 +680,8 @@ Calendar.propTypes = {
   preventSnapRefocus: PropTypes.bool,
   ariaLabels: ariaLabelsShape,
   monthStyle: PropTypes.object,
+  startError: PropTypes.string,
+  endError: PropTypes.string,
 };
 
 export default Calendar;

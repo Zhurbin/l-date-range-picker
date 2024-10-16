@@ -505,3 +505,24 @@
   font-size: 14px;
   padding: 0 12px 8px;
 }
+
+.rdrError{
+  padding: 10px 12px 10px 48px;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid #E34D4A;
+  border-radius: 8px;
+  color: #0A0A0A;
+  margin-top: 16px;
+  width: 276px;
+  box-sizing: border-box;
+  background-image: url("data:image/svg+xml,%3Csvg fill='none' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath clip-rule='evenodd' d='m10 0c-5.52285 0-10 4.47715-10 10 0 5.5228 4.47715 10 10 10 5.5228 0 10-4.4772 10-10 0-5.52285-4.4772-10-10-10zm-2.36363 6.3637c-.35147-.35147-.92132-.35147-1.27279 0s-.35147.92132 0 1.27279l2.3636 2.36361-2.3636 2.3636c-.35147.3515-.35147.9213 0 1.2728s.92132.3515 1.27279 0l2.36361-2.3636 2.36362 2.3636c.3515.3515.9213.3515 1.2728 0 .3514-.3515.3514-.9213 0-1.2728l-2.3636-2.3636 2.3636-2.36361c.3514-.35147.3514-.92132 0-1.27279-.3515-.35147-.9213-.35147-1.2728 0l-2.36362 2.36361z' fill='%23f55451' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 14px top 10px;
+}
+
+.rdrInputError {
+  input {
+    border-color: #E34D4A;
+  }
+}

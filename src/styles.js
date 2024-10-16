@@ -61,4 +61,6 @@ export default {
   endEdgeCover: 'rdrEndEdgeCover',
   startEdgeCoverFloor: 'rdrStartEdgeCoverFloor',
   endEdgeCoverFloor: 'rdrEndEdgeCoverFloor',
+  error: 'rdrError',
+  inputError: 'rdrInputError',
 };
